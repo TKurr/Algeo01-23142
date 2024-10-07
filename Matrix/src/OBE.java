@@ -22,18 +22,19 @@ public class OBE {
 	
 	// row normalization (sets the first value to one)
 	public static float[][] rowNorm(float[][] m,int idx) {
-		float x = 1;
-		for (int i = 0; i < getColEff(m); i++) {
-			if (m[idx][i] != 0) {
-				x = m[idx][i];
+		int rowIdx = 0; //declare aja dlu
+		float [] col = getCol(m, idx+1);
+		for (int i = 0; i < getRowEff(m); i++) {
+			if (col[i] == 1) {
+				rowIdx = i;
 				break;
 			}
 		}
-		for (int i = 0; i < getRowEff(m);i++) {
+		
+		for (int i = rowIdx+1; i < getRowEff(m); i++) {
+			float temp = m[i][idx];
 			for (int j = 0; j < getColEff(m); j++) {
-				if (i == idx) {
-					m[i][j] = m[i][j] / x;
-				}
+				m[i][j] -= (temp * m[rowIdx][j]);
 			}
 		}
 		return m;
@@ -54,21 +55,20 @@ public class OBE {
 		return m;
 	}
 	// column Elimination (eliminates column to zero)
-	public static float[][] colElim (float[][] m,int idx) {
-		int rowIdx = 0; //declare aja dlu
-		float [] col = getCol(m, idx+1);
-		for (int i = 0; i < getRowEff(m); i++) {
-			if (col[i] == 1) {
-				rowIdx = i;
+	public static float[][] colElim(float[][] m,int idx) {
+		float x = 1;
+		for (int i = 0; i < getColEff(m); i++) {
+			if (m[idx][i] != 0) {
+				x = m[idx][i];
 				break;
 			}
 		}
-		for (int i = rowIdx+1; i < getRowEff(m); i++) {
-			float temp = m[i][idx];
+		for (int i = 0; i < getRowEff(m);i++) {
 			for (int j = 0; j < getColEff(m); j++) {
-				m[i][j] -= (temp * m[rowIdx][j]);
+				if (i == idx) {
+					m[i][j] = m[i][j] / x;
+				}
 			}
-			m = multiplyRow(m,i+1,c);
 		}
 		return m;
 	}
