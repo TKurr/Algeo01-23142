@@ -2,45 +2,26 @@
 public class OBE {
 	
 	// switchRow
-	public static float[][] switchRow(float[][] m,int idx1, int idx2) {
-		float[] row1 = new float[getColEff(m)];
-		float[] row2 = new float[getColEff(m)];
-		row1 = getRow(m, idx1+1);
-		row2 = getRow(m, idx2+1);
+	public static float[][] switchRow(float[][] m,int row1, int row2) {
+		float[] row1List = new float[getColEff(m)];
+		float[] row2List = new float[getColEff(m)];
+		row1List = getRow(m, row1);
+		row2List = getRow(m, row2);
 		for (int i = 0; i < getRowEff(m); i++) {
 			for (int j = 0; j < getColEff(m); j++) {
-				if (i == idx1) {
-					m[i][j] = row2[j];
+				if (i == row1-1) {
+					m[i][j] = row2List[j];
 				}
-				if (i == idx2) {
-					m[i][j] = row1[j];
+				if (i == row2-1) {
+					m[i][j] = row1List[j];
 				}
 			}
 		}
 		return m;
 	}
 	
-	// switchCol
-	public static float[][] switchCol(float[][] m,int idx1, int idx2) {
-		float[] col1 = new float[getRowEff(m)];
-		float[] col2 = new float[getRowEff(m)];
-		col1 = getCol(m, idx1+1);
-		col2 = getCol(m, idx2+1);
-		for (int i = 0; i < getRowEff(m); i++) {
-			for (int j = 0; j < getColEff(m); j++) {
-				if (j == idx1) {
-					m[i][j] = col2[i];
-				}
-				if (j == idx2) {
-					m[i][j] = col1[i];
-				}
-			}
-		}
-		return m;
-	}
-	
-	// multiplyRow
-	public static float[][] multiplyRow(float[][] m,int idx) {
+	// row normalization (sets the first value to one)
+	public static float[][] rowNorm(float[][] m,int idx) {
 		float x = 1;
 		for (int i = 0; i < getColEff(m); i++) {
 			if (m[idx][i] != 0) {
@@ -58,27 +39,22 @@ public class OBE {
 		return m;
 	}
 	
-	// multiplyCol belum dicek lagi karena kemungkinan ga kepake
-	public static float[][] multiplyCol(float[][] m,int idx) {
-		float x = 1;
-		for (int i = 0; i < getColEff(m);i++) {
-			if (m[idx][i] != 0) {
-				x = m[idx][i];
-				break;
-			}
-		}
-		for (int i = 0; i < getRowEff(m);i++) {
-			for (int j = 0; j < getColEff(m); j++) {
-				if (j == idx) {
-					m[i][j] = m[i][j] * x;
-				}
-			}
+	public static float[][] multiplyRow(float[][] m,int row, float c) {
+		for (int j = 0; j < getColEff(m); j++) {
+			m[row-1][j] = m[row-1][j] * c;
 		}
 		return m;
 	}
 	
-	// addRow
-	public static float[][] addRow (float[][] m,int idx) {
+	// multiplyMatrix
+	public static float[][] multiplyMatrix(float[][] m, float c) {
+		for (int i = 0; i < getRowEff(m); i++) {
+			m = multiplyRow(m,i+1,c);
+		}
+		return m;
+	}
+	// column Elimination (eliminates column to zero)
+	public static float[][] colElim (float[][] m,int idx) {
 		int rowIdx = 0; //declare aja dlu
 		float [] col = getCol(m, idx+1);
 		for (int i = 0; i < getRowEff(m); i++) {
@@ -87,32 +63,36 @@ public class OBE {
 				break;
 			}
 		}
-		
 		for (int i = rowIdx+1; i < getRowEff(m); i++) {
 			float temp = m[i][idx];
 			for (int j = 0; j < getColEff(m); j++) {
 				m[i][j] -= (temp * m[rowIdx][j]);
 			}
+			m = multiplyRow(m,i+1,c);
 		}
 		return m;
 	}
-	
-	// addCol
-	
-	
+	// addRow
+	public static float[][] addRow (float[][] m,int row1, int row2, int c) {
+		for (int j = 0; j < getColEff(m); j++) {
+			m[row1-1][j] = m[row1-1][j] +( m[row2-1][j]*c);
+		}
+		return m;
+	}
+		
 	// getRow
-	public static float[] getRow(float[][] m,int idx) {
+	public static float[] getRow(float[][] m,int row) {
 		float[] list = new float[getColEff(m)];
 		for (int i = 0; i < getColEff(m);i++) {
-			list[i] = m[idx-1][i];
+			list[i] = m[row-1][i];
 		}
 		return list;
 	}
 	// getCol
-	public static float[] getCol(float[][] m,int idx) {
+	public static float[] getCol(float[][] m,int col) {
 		float[] list = new float[getRowEff(m)];
 		for (int i = 0; i < getRowEff(m);i++) {
-			list[i] = m[i][idx-1];
+			list[i] = m[i][col-1];
 		}
 		return list;
 	}
@@ -126,33 +106,33 @@ public class OBE {
 	}
 	
 	// deleteRow
-	public static float[][] deleteRow(float[][] m, int idx){
+	public static float[][] deleteRow(float[][] m, int row){
 		int rowEff = getRowEff(m)-1;
 		int colEff = getColEff(m);
 		float[][] m2 = new float[rowEff][colEff];
-		int currentIdx = 0;
+		int currentRow = 0;
 		for (int i = 0; i<getRowEff(m);i++) {
-			if (i != idx-1) {
+			if (i != row-1) {
 				for (int j = 0; j<getColEff(m);j++) {
-					m2[currentIdx][j] = m[i][j];	
+					m2[currentRow][j] = m[i][j];	
 				}
-				currentIdx = currentIdx + 1;
+				currentRow = currentRow + 1;
 			}
 		}
 		return m2;
 	}
 	// deleteCol
-	public static float[][] deleteCol(float[][] m, int idx){
+	public static float[][] deleteCol(float[][] m, int col){
 		int rowEff = getRowEff(m);
 		int colEff = getColEff(m)-1;
 		float[][] m2 = new float[rowEff][colEff];
 		
 		for (int i = 0; i<getRowEff(m);i++) {
-			int currentIdx = 0;
+			int currentCol = 0;
 			for (int j = 0; j<getColEff(m);j++) {
-				if (j != idx-1) {
-					m2[i][currentIdx] = m[i][j];
-					currentIdx = currentIdx + 1;
+				if (j != col-1) {
+					m2[i][currentCol] = m[i][j];
+					currentCol = currentCol + 1;
 				}
 			}
 		}
@@ -162,7 +142,7 @@ public class OBE {
 	private static void printMatrix(float[][] m) {
 		for (int i = 0; i<m.length;i++) {
 			for (int j = 0; j<m[0].length;j++) {
-				System.out.printf("%.2g",m[i][j]);
+				System.out.printf("%.2f",m[i][j]);
 				System.out.print(" ");
 			}
 			System.out.println("");
@@ -171,7 +151,7 @@ public class OBE {
 	
 	private static void printList(float[] list) {
 		for (int j = 0; j<list.length;j++) {
-			System.out.printf("%.2g",list[j]);
+			System.out.printf("%.2f",list[j]);
 			System.out.print(" ");
 		}
 		System.out.println("");
@@ -201,19 +181,22 @@ public class OBE {
 		System.out.println("");
 		printMatrix(m);
 		System.out.println("");
-		m = switchRow(m,0,3);
+		m = switchRow(m,1,3);
 		printMatrix(m);
 		System.out.println("");
-		m = switchCol(m,2,3);
+		float number = 0.5f;
+		m = multiplyRow(m,2,10);
 		printMatrix(m);
 		System.out.println("");
-		m = multiplyRow(m,2);
+		m = addRow(m,1,4,3);
 		printMatrix(m);
 		System.out.println("");
-		printMatrix(theo);
-		System.out.println("");
-		theo = addRow(theo, 0);
-		printMatrix(theo);
-		System.out.println("");		
+		m = multiplyMatrix(m,2);
+		printMatrix(m);
+//		printMatrix(theo);
+//		System.out.println("");
+//		theo = addRow(theo, 0);
+//		printMatrix(theo);
+//		System.out.println("");		
 	}
 }
