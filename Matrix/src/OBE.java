@@ -1,5 +1,27 @@
 
 public class OBE {
+	// Gauss
+	public static float[][] Gauss(float[][] m){
+		for (int i = 0; i < getRowEff(m); i++) {
+			boolean gss = true;
+			if (i < (getRowEff(m))) {
+				rowNorm(m,i);
+				colElim(m,i,gss);
+			}
+		}
+		return m;
+	}
+	
+	// Reduksi Baris
+	public static float[][] ReduksiBaris(float[][] m){
+		boolean gss = false;
+		for (int i = 0; i < getRowEff(m); i++) {
+			if (i < (getRowEff(m))) {
+				colElim(m,i,gss);
+			}
+		}
+		return m;
+	}
 	
 	// switchRow
 	public static float[][] switchRow(float[][] m,int row1, int row2) {
@@ -54,21 +76,18 @@ public class OBE {
 		return m;
 	}
 	// column Elimination (eliminates column to zero)
-	public static float[][] colElim (float[][] m,int idx) {
-		int rowIdx = 0; //declare aja dlu
-		float [] col = getCol(m, idx+1);
-		for (int i = 0; i < getRowEff(m); i++) {
-			if (col[i] == 1) {
-				rowIdx = i;
-				break;
+	public static float[][] colElim (float[][] m,int idx, boolean gss) {
+		float temp = 1;
+		for (int i = idx+1; i < getRowEff(m); i++) {
+			if (gss) {
+				temp = m[i][idx];
+			} else {
+				temp = m[i][idx] / m[idx][idx];
 			}
-		}
-		for (int i = rowIdx+1; i < getRowEff(m); i++) {
-			float temp = m[i][idx];
 			for (int j = 0; j < getColEff(m); j++) {
-				m[i][j] -= (temp * m[rowIdx][j]);
+				m[i][j] -= (temp * m[idx][j]);
+				
 			}
-			m = multiplyRow(m,i+1,c);
 		}
 		return m;
 	}
@@ -142,8 +161,14 @@ public class OBE {
 	private static void printMatrix(float[][] m) {
 		for (int i = 0; i<m.length;i++) {
 			for (int j = 0; j<m[0].length;j++) {
-				System.out.printf("%.2f",m[i][j]);
-				System.out.print(" ");
+				if (m[i][j] == -0.00) {
+					System.out.printf("0,00");
+					System.out.print(" ");
+				}
+				else {
+					System.out.printf("%.2f",m[i][j]);
+					System.out.print(" ");
+				}
 			}
 			System.out.println("");
 		}
@@ -151,8 +176,14 @@ public class OBE {
 	
 	private static void printList(float[] list) {
 		for (int j = 0; j<list.length;j++) {
-			System.out.printf("%.2f",list[j]);
-			System.out.print(" ");
+			if (m[i][j] == -0.00) {
+				System.out.printf("0,00");
+				System.out.print(" ");
+			}
+			else {
+				System.out.printf("%.2f",list[j]);
+				System.out.print(" ");
+			}
 		}
 		System.out.println("");
 	}
@@ -160,14 +191,18 @@ public class OBE {
 	// main driver
 	public static void main(String[] args) {
 		float[][] m = new float[5][10];
-		float[][] theo = new float[4][4];
-		float count = 1;
-		for (int i = 0; i<getRowEff(theo);i++) {
-			for (int j = 0; j<getColEff(theo);j++) {
-				theo[i][j] = count;
-				count += 1;
-			}
-		}
+		float[][] theo = {
+				{1,1,-1,-1,1},
+				{2,5,-7,-5,-2},
+				{2,-1,1,3,4},
+				{5,2,-4,2,6}
+				};
+		float[][] theo2 = {
+				{1,1,-1,-1,1},
+				{2,5,-7,-5,-2},
+				{2,-1,1,3,4},
+				{5,2,-4,2,6}
+				};
 		for (int i = 0; i<getRowEff(m);i++) {
 			for (int j = 0; j<getColEff(m);j++) {
 				m[i][j] = (i-j)*(i+j);
@@ -193,6 +228,14 @@ public class OBE {
 		System.out.println("");
 		m = multiplyMatrix(m,2);
 		printMatrix(m);
+		System.out.println("");
+		printMatrix(theo);
+		System.out.println("");
+		theo = ReduksiBaris(theo);
+		printMatrix(theo);
+		System.out.println("");
+		theo2 = Gauss(theo2);
+		printMatrix(theo2);
 //		printMatrix(theo);
 //		System.out.println("");
 //		theo = addRow(theo, 0);
