@@ -1,27 +1,5 @@
 
 public class OBE {
-	// Gauss
-	public static float[][] Gauss(float[][] m){
-		for (int i = 0; i < getRowEff(m); i++) {
-			boolean gss = true;
-			if (i < (getRowEff(m))) {
-				rowNorm(m,i);
-				colElim(m,i,gss);
-			}
-		}
-		return m;
-	}
-	
-	// Reduksi Baris
-	public static float[][] ReduksiBaris(float[][] m){
-		boolean gss = false;
-		for (int i = 0; i < getRowEff(m); i++) {
-			if (i < (getRowEff(m))) {
-				colElim(m,i,gss);
-			}
-		}
-		return m;
-	}
 	
 	// switchRow
 	public static float[][] switchRow(float[][] m,int row1, int row2) {
@@ -158,7 +136,7 @@ public class OBE {
 		return m2;
 	}
 	
-	private static void printMatrix(float[][] m) {
+	public static void printMatrix(float[][] m) {
 		for (int i = 0; i<m.length;i++) {
 			for (int j = 0; j<m[0].length;j++) {
 				if (m[i][j] == -0.00) {
@@ -174,9 +152,9 @@ public class OBE {
 		}
 	}
 	
-	private static void printList(float[] list) {
+	public static void printList(float[] list) {
 		for (int j = 0; j<list.length;j++) {
-			if (m[i][j] == -0.00) {
+			if (list[j] == -0.00) {
 				System.out.printf("0,00");
 				System.out.print(" ");
 			}
@@ -219,7 +197,6 @@ public class OBE {
 		m = switchRow(m,1,3);
 		printMatrix(m);
 		System.out.println("");
-		float number = 0.5f;
 		m = multiplyRow(m,2,10);
 		printMatrix(m);
 		System.out.println("");
@@ -231,10 +208,10 @@ public class OBE {
 		System.out.println("");
 		printMatrix(theo);
 		System.out.println("");
-		theo = ReduksiBaris(theo);
+		theo = Eselon.ReduksiBaris(theo);
 		printMatrix(theo);
 		System.out.println("");
-		theo2 = Gauss(theo2);
+		theo2 = Eselon.MatriksEselon(theo2);
 		printMatrix(theo2);
 //		printMatrix(theo);
 //		System.out.println("");
