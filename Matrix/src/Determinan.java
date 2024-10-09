@@ -10,5 +10,4 @@ public class Determinan {
 		// TODO Auto-generated method stub
 
 	}
-
 }
