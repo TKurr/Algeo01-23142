@@ -93,7 +93,4 @@ public class Eselon {
 		OBE.printMatrix(theo);
 		System.out.println("");
 	}
-	// Eselon tereduksi
-	
-
 }
