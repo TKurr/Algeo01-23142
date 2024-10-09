@@ -1,6 +1,5 @@
 
 public class OBE {
-	
 	// switchRow
 	public static float[][] switchRow(float[][] m,int row1, int row2) {
 		float[] row1List = new float[getColEff(m)];
@@ -14,25 +13,6 @@ public class OBE {
 				}
 				if (i == row2-1) {
 					m[i][j] = row1List[j];
-				}
-			}
-		}
-		return m;
-	}
-	
-	// row normalization (sets the first value to one)
-	public static float[][] rowNorm(float[][] m,int idx) {
-		float x = 1;
-		for (int i = 0; i < getColEff(m); i++) {
-			if (m[idx][i] != 0) {
-				x = m[idx][i];
-				break;
-			}
-		}
-		for (int i = 0; i < getRowEff(m);i++) {
-			for (int j = 0; j < getColEff(m); j++) {
-				if (i == idx) {
-					m[i][j] = m[i][j] / x;
 				}
 			}
 		}
@@ -53,24 +33,9 @@ public class OBE {
 		}
 		return m;
 	}
-	// column Elimination (eliminates column to zero)
-	public static float[][] colElim (float[][] m,int idx, boolean gss) {
-		float temp = 1;
-		for (int i = idx+1; i < getRowEff(m); i++) {
-			if (gss) {
-				temp = m[i][idx];
-			} else {
-				temp = m[i][idx] / m[idx][idx];
-			}
-			for (int j = 0; j < getColEff(m); j++) {
-				m[i][j] -= (temp * m[idx][j]);
-				
-			}
-		}
-		return m;
-	}
+
 	// addRow
-	public static float[][] addRow (float[][] m,int row1, int row2, int c) {
+	public static float[][] addRow (float[][] m,int row1, int row2, float c) {
 		for (int j = 0; j < getColEff(m); j++) {
 			m[row1-1][j] = m[row1-1][j] +( m[row2-1][j]*c);
 		}
