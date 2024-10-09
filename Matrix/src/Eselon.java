@@ -76,9 +76,7 @@ public class Eselon {
 		}
 		return m;
 	}
-		
 	public static void main(String[] args) {
-		float n;
 		float[][] theo = {
 				{1,1,-1,-1,10},
 				{2,5,-7,-5,4},
