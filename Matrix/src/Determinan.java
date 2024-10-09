@@ -6,7 +6,6 @@ public class Determinan {
 		return (m[0][0]*m[1][1]) - (m[0][1]*m[1][0]);
 	}
 	
-	// Determinan Reduksi Baris
 	public static float DeterminanReduksiBaris(float[][] m){
 		float result;
 		result = 1;
@@ -17,6 +16,7 @@ public class Determinan {
 	}
 
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		float[][] theo2 = {
 				{1,1,-1,-1},
 				{2,5,-7,-5},
@@ -31,4 +31,4 @@ public class Determinan {
 		System.out.println(n);
 	}
 
-}
+}	
