@@ -15,6 +15,18 @@ public class Determinan {
 		return result;
 	}
 	
+	public static float DeterminanKofaktor(float[][] m) {
+		if (Kofaktor.isMatriks2x2(m)) {
+			return Determinan.minorMatriks(m);
+		} else {
+			float ctr = 0;
+			for (int i = 0; i < OBE.getColEff(m);i++) {
+				ctr = ctr + m[0][i]*Kofaktor.kofaktor(m,0,i);
+			}
+			return ctr;
+		}
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		float[][] theo2 = {

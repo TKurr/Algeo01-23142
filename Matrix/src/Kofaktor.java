@@ -10,19 +10,7 @@ public class Kofaktor {
 		if (isMatriks2x2(m)) {
 			return (float) (Math.pow(-1, i+j)*Determinan.minorMatriks(m));
 		} else {
-			return (float) (Math.pow(-1, i+j)*DeterminanKofaktor(m));
-		}
-	}
-	
-	public static float DeterminanKofaktor(float[][] m) {
-		if (isMatriks2x2(m)) {
-			return Determinan.minorMatriks(m);
-		} else {
-			float ctr = 0;
-			for (int i = 0; i < OBE.getColEff(m);i++) {
-				ctr = ctr + m[0][i]*kofaktor(m,0,i);
-			}
-			return ctr;
+			return (float) (Math.pow(-1, i+j)*Determinan.DeterminanKofaktor(m));
 		}
 	}
 	
@@ -33,7 +21,7 @@ public class Kofaktor {
 				{5,0,4},
 				{8,2,-3},
 		};
-		float C00 = DeterminanKofaktor(theo);
+		float C00 = Determinan.DeterminanKofaktor(theo);
 		System.out.println(C00);
 		float C = kofaktor(theo,0,1);
 		System.out.println(C);
