@@ -173,6 +173,11 @@ public class OBE {
 		System.out.println("");
 		printMatrix(theo);
 		System.out.println("");
+		theo = Eselon.ReduksiBaris(theo);
+		printMatrix(theo);
+		System.out.println("");
+		theo2 = Eselon.MatriksEselon(theo2);
+		printMatrix(theo2);
 //		printMatrix(theo);
 //		System.out.println("");
 //		theo = addRow(theo, 0);

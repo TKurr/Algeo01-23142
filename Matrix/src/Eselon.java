@@ -85,12 +85,6 @@ public class Eselon {
 				{2,-1,1,3,6},
 				{5,2,-4,3,1}
 				};
-		float[][] theo2 = {
-				{1,1,-1,-1},
-				{2,5,-7,-5},
-				{2,-1,1,3},
-				{5,2,-4,3}
-				};
 		theo = ReduksiBaris(theo);
 		OBE.printMatrix(theo);
 		System.out.println("");
@@ -99,9 +93,6 @@ public class Eselon {
 		System.out.println("");
 		theo = MatriksEselonTereduksi(theo);
 		OBE.printMatrix(theo);
-		System.out.println("");
-		theo2 = ReduksiBaris(theo2);
-		OBE.printMatrix(theo2);
 		System.out.println("");
 	}
 }
