@@ -7,12 +7,15 @@ public class Determinan {
 	}
 	
 	public static float DeterminanReduksiBaris(float[][] m){
+		int swap = Eselon.countSwap(m);
+		Eselon.SortMatriks(m);
+		m = Eselon.ReduksiBaris(m);
 		float result;
 		result = 1;
 		for (int i = 0; i < OBE.getRowEff(m); i++) {
 			result *= m[i][i];
 		}
-		return result;
+		return (float) (result*Math.pow(-1, swap));
 	}
 	
 	public static float DeterminanKofaktor(float[][] m) {
@@ -30,16 +33,13 @@ public class Determinan {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		float[][] theo2 = {
-				{1,1,-1,-1},
-				{2,5,-7,-5},
-				{2,-1,1,3},
-				{5,2,-4,3}
+				{2,-3,1,2,5},
+				{4,1,-2,-3,2},
+				{5,-4,2,2,-3},
+				{3,-1,5,2,1},
+				{-4,1,5,-1,2}
 				};
-		theo2 = Eselon.ReduksiBaris(theo2);
-		OBE.printMatrix(theo2);
-		System.out.println("");
-		float n;
-		n = DeterminanReduksiBaris(theo2);
+		float n = DeterminanReduksiBaris(theo2);
 		System.out.println(n);
 	}
 }

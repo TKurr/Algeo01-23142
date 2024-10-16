@@ -76,21 +76,68 @@ public class Eselon {
 		}
 		return m;
 	}
+	
+	public static int countZero(float[][] m, int idx) {
+		int ctr = 0;
+		for (int i = 0; i < OBE.getColEff(m); i++) {
+			if (m[idx][i] != 0) {
+				return ctr;
+			}
+			ctr++;
+		}
+		return ctr;
+	}
+	
+	public static int countSwap(float[][] m) {
+		int n = OBE.getRowEff(m);
+		int ctr = 0;
+		boolean swapped;
+		for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (countZero(m,j) > countZero(m,j+1)) {
+                    ctr = ctr + 1;
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+		}
+		return ctr;
+	}
+	
+	public static void SortMatriks(float[][] m) {
+		int n = OBE.getRowEff(m);
+		boolean swapped;
+		for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (countZero(m,j) > countZero(m,j+1)) {
+                    OBE.switchRow(m, j+1, j+2);
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+		}
+	}
+	
 	public static void main(String[] args) {
 		float[][] theo = {
-				{1,1,-1,-1,10},
-				{2,5,-7,-5,4},
+				{0,1,-1,-1,10},
+				{0,0,-7,-5,4},
 				{2,-1,1,3,6},
 				{5,2,-4,3,1}
 				};
-		theo = ReduksiBaris(theo);
+		System.out.println(countSwap(theo));
+		SortMatriks(theo);
 		OBE.printMatrix(theo);
-		System.out.println("");
-		theo = MatriksEselon(theo);
-		OBE.printMatrix(theo);
-		System.out.println("");
-		theo = MatriksEselonTereduksi(theo);
-		OBE.printMatrix(theo);
-		System.out.println("");
+//		theo = ReduksiBaris(theo);
+//		OBE.printMatrix(theo);
+//		System.out.println("");
+//		theo = MatriksEselon(theo);
+//		OBE.printMatrix(theo);
+//		System.out.println("");
+//		theo = MatriksEselonTereduksi(theo);
+//		OBE.printMatrix(theo);
+//		System.out.println("");
 	}
 }
