@@ -1,6 +1,7 @@
 
 public class SPL {
     public static float[][] elimGaussJordan(float[][] m){
+    	Eselon.SortMatriks(m);
         m = Eselon.ReduksiBaris(m);
         m = Eselon.MatriksEselon(m);
         m = Eselon.MatriksEselonTereduksi(m);
@@ -30,11 +31,6 @@ public class SPL {
     	return (OBE.getRowEff(m) < OBE.getColEff(m) - 1);
     }
 
-//    public static float[] solusiSPL(float[][] m){
-//        float[] list = new float[OBE.getRowEff(m)];
-//        for (int i = 0; i < list.length; i++) {
-//    }
-    
     public static void printParametric(float[][] m) {
     	int i,j;
     	for (i = 0; i < OBE.getRowEff(m); i++) {
@@ -70,15 +66,28 @@ public class SPL {
     	}
 
     }
+    
+    public static float[] listSolution(float[][] m) {
+    	// matriks sudah berbentuk matriks eselon tereduksi
+    	// solusi matriks unik
+    	float[] result = new float[OBE.getRowEff(m)];
+    	for (int i = 0; i < result.length; i++) {
+    		result[i] = m[i][result.length];
+    	}
+    	return result;
+    	
+    }
 
     public static void main(String[] args) {
         float[][] m = {
 				{0,0,1,3},
-				{0,1,1,5},
-				{1,2,4,5},
+				{0,1,0,5},
+				{1,0,0,5},
 		};
         m = elimGaussJordan(m);
+        System.out.println(isSolution(m));
         OBE.printMatrix(m);
         printParametric(m);
+        OBE.printList(listSolution(m));
     }
 }
