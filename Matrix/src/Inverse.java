@@ -16,6 +16,7 @@ public class Inverse {
 	public static float[][] InverseAdjoin(float[][] m){
 		float[][] adjoin, newM = new float[OBE.getRowEff(m)][OBE.getRowEff(m)];
 		float det;
+		m = Transpose(m);
 		det = Determinan.DeterminanKofaktor(m);
 		adjoin = Kofaktor.MatriksKofaktor(m);
 		newM = OBE.multiplyMatrix(adjoin, 1/det);
