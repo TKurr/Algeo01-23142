@@ -70,11 +70,24 @@ public class Eselon {
 	// Reduksi Baris
 	public static float[][] ReduksiBaris(float[][] m){
 		for (int i = 0; i < OBE.getRowEff(m); i++) {
+			SortMatriks(m);
 			if (i < (OBE.getRowEff(m))) {
 				colElim(m,i);
 			}
 		}
 		return m;
+	}
+	
+	public static int CountSwapRed(float[][] m){
+		int ctr = 0;
+		for (int i = 0; i < OBE.getRowEff(m); i++) {
+			countSwap(m);
+			SortMatriks(m);
+			if (i < (OBE.getRowEff(m))) {
+				colElim(m,i);
+			}
+		}
+		return ctr;
 	}
 	
 	public static int countZero(float[][] m, int idx) {

@@ -9,6 +9,7 @@ public class Determinan {
 	public static float DeterminanReduksiBaris(float[][] m){
 		int swap = Eselon.countSwap(m);
 		Eselon.SortMatriks(m);
+		swap = swap + Eselon.CountSwapRed(m);
 		m = Eselon.ReduksiBaris(m);
 		float result;
 		result = 1;
