@@ -18,19 +18,12 @@ public class RegresiBerganda {
             }
         }
         
-        
-        
         // Invers dari matriks X^T * X
         double[][] XTXInv = Inverse.InverseAdjoin(XTX);
-        OBE.printMatrix(XTXInv);
-        System.out.println("");
-        for (int i = 0; i < n; i++) {
-        	for (int j = 0; j < n; j++) {
-        		XTXInv[i][j] = Math.round((XTXInv[i][j])*100)/100;
-        	}
-        }
-        OBE.printMatrix(XTXInv);
-        System.out.println("");
+//        OBE.printMatrix(XTXInv);
+//        System.out.println("");
+//        OBE.printMatrix(XTXInv);
+//        System.out.println(""); // for debugging
         // Koefisien regresi: (X^T * X)^-1 * (X^T * Y)
         double[] coefficients = new double[n];
         double sum = 0;
@@ -40,8 +33,6 @@ public class RegresiBerganda {
             	
             }
         }
-        OBE.printList(coefficients);
-        System.out.println("");
         
         return coefficients;
     }
@@ -72,11 +63,18 @@ public class RegresiBerganda {
         // Kalkulasi koefisien regresi menggunakan (X^T * X)^-1 * X^T * Y
         double[] coefficients = calculateCoefficients(X, Y);
         
-        // Menampilkan koefisien
-        System.out.println("Koefisien regresi:");
-        for (int i = 0; i < coefficients.length; i++) {
-            System.out.printf("b%d = %.4f\n", i, coefficients[i]);
+        System.out.printf("f(x) = %.4f", coefficients[0]);
+        for (int i = 1; i < coefficients.length; i++) {
+        	if (coefficients[i] >= 0) {
+        		System.out.print(" + ");
+        	} else {
+        		coefficients[i] = -coefficients[i];
+        		System.out.print(" - ");
+        	}
+        	System.out.printf("%.4fX", coefficients[i]);
+        	System.out.printf("%d", i);
         }
+        System.out.println("");
         
         // Input nilai-nilai xk yang akan ditaksir nilai fungsinya
         double[] xk = new double[n+1];
@@ -91,8 +89,7 @@ public class RegresiBerganda {
         for (int i = 0; i <= n; i++) {
             yk += coefficients[i] * xk[i];
         }
-        System.out.printf("Nilai taksiran yk: %.4f\n", yk);
-        
+        System.out.printf("f(xk) = %.4f\n", yk);   
         sc.close();
     }
     
