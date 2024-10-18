@@ -1,6 +1,6 @@
 
 public class SPL {
-    public static float[][] elimGaussJordan(float[][] m){
+    public static double[][] elimGaussJordan(double[][] m){
     	Eselon.SortMatriks(m);
         m = Eselon.ReduksiBaris(m);
         m = Eselon.MatriksEselon(m);
@@ -8,7 +8,7 @@ public class SPL {
         return m;
     }
     
-    public static boolean isSolution(float[][] m) {
+    public static boolean isSolution(double[][] m) {
         int rowCount = OBE.getRowEff(m); 
         int colCount = OBE.getColEff(m);
 
@@ -27,11 +27,11 @@ public class SPL {
         return true; 
     }
 
-    public static boolean isInfiniteSolution(float[][] m) {
+    public static boolean isInfiniteSolution(double[][] m) {
     	return (OBE.getRowEff(m) < OBE.getColEff(m) - 1);
     }
 
-    public static void printParametric(float[][] m) {
+    public static void printParametric(double[][] m) {
     	int i,j;
     	for (i = 0; i < OBE.getRowEff(m); i++) {
     		String stringTemp = "X" + (i+1);
@@ -53,7 +53,7 @@ public class SPL {
     	}
     }
     
-    public static void printParametric2(float[][] m) {
+    public static void printParametric2(double[][] m) {
     	int i, j;
     	for (i = 0; i < OBE.getRowEff(m); i++){
     		System.out.print("X" +  (i+1) + " = " + m[i][OBE.getColEff(m)-1]); //ubah i+1 nya ntar
@@ -67,10 +67,10 @@ public class SPL {
 
     }
     
-    public static float[] listSolution(float[][] m) {
+    public static double[] listSolution(double[][] m) {
     	// matriks sudah berbentuk matriks eselon tereduksi
     	// solusi matriks unik
-    	float[] result = new float[OBE.getRowEff(m)];
+    	double[] result = new double[OBE.getRowEff(m)];
     	for (int i = 0; i < result.length; i++) {
     		result[i] = m[i][result.length];
     	}
@@ -79,7 +79,7 @@ public class SPL {
     }
 
     public static void main(String[] args) {
-        float[][] m = {
+        double[][] m = {
 				{0,0,1,3},
 				{0,1,0,5},
 				{1,0,0,5},

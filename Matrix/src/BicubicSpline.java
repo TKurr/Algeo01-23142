@@ -16,28 +16,28 @@ public class BicubicSpline {
 		return (int) (i * j * Math.pow(x, i-1) * Math.pow(y, j-1));
 	}
 	
-	public static float[][] matriksY(float[][] m){
-		float[][] Y = new float[16][1];
+	public static double[][] matriksY(double[][] m){
+		double[][] Y = new double[16][1];
 		for (int i = 0; i < 16; i++) {
 			
 		}
 		return Y;
 	}
 	
-	public static float derivativeX(float[][] m, int i, int j) {
+	public static double derivativeX(double[][] m, int i, int j) {
 		return (m[i + 1][j] - m[i - 1][j]) / 2;
 	}
 	
-	public static float derivativeY(float[][] m, int i, int j) {
+	public static double derivativeY(double[][] m, int i, int j) {
 		return (m[i][j+1] - m[i][j-1]) / 2;
 	}
 	
-	public static float derivativeXY(float[][] m, int i, int j) {
+	public static double derivativeXY(double[][] m, int i, int j) {
 		return (m[i + 1][j + 1] - m[i + 1][j - 1] - m[i - 1][j + 1] + m[i - 1][j - 1]) / 4;
 	}
 	
-	public static float[][] addMatriksX(){
-		float[][] X = new float[16][17];
+	public static double[][] addMatriksX(){
+		double[][] X = new double[16][17];
 		for (int i = 0; i < 16; i++) {
 			int x = (i)%2;
 			int y = Math.floorDiv(((i)%4),2);
@@ -57,7 +57,7 @@ public class BicubicSpline {
 		return X;
 	}
 	
-	public static float[][] addMatriksY(float[][] m, float[][] grid){
+	public static double[][] addMatriksY(double[][] m, double[][] grid){
 		for (int idx = 0; idx < 16; idx++) {
 			int i = (idx)%2 + 1;
 			int j = Math.floorDiv(((idx)%4),2) + 1;
@@ -74,20 +74,20 @@ public class BicubicSpline {
 		return m;
 	}
 	
-	public static float[] getListOfA(float[][] m) {
+	public static double[] getListOfA(double[][] m) {
 		m = SPL.elimGaussJordan(m);
 		return SPL.listSolution(m);
 	}
 	
-	public static float finalFunction(float x, float y, float[] a) {
-		float result = 0;
+	public static double finalFunction(double x, double y, double[] a) {
+		double result = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				int indexA = i*4 + j;
 //				System.out.println(indexA);
 //				System.out.print(j);
 //				System.out.println(i);
-				result = (float) (result + a[indexA]*(Math.pow(x, j) * Math.pow(y, i)));
+				result = (double) (result + a[indexA]*(Math.pow(x, j) * Math.pow(y, i)));
 			}
 		}
 		return result;
@@ -95,18 +95,18 @@ public class BicubicSpline {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		float[][] theo = {
+		double[][] theo = {
 				{21,98,125,153},
 				{51,101,161,59},
 				{0,42,72,210},
 				{16,12,81,96},
 		};
-		float[][] m = addMatriksX();
+		double[][] m = addMatriksX();
 		m = addMatriksY(m,theo);
 //		OBE.printMatrix(m);
-		float[] a = getListOfA(m);
+		double[] a = getListOfA(m);
 		OBE.printList(a);
-		float result = finalFunction((float) 0.75,(float) 0.25,a);
+		double result = finalFunction((double) 0.75,(double) 0.25,a);
 		System.out.println(result);
 	}
 }

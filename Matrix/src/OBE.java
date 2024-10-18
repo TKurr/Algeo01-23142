@@ -1,9 +1,9 @@
 
 public class OBE {
 	// switchRow
-	public static float[][] switchRow(float[][] m,int row1, int row2) {
-		float[] row1List = new float[getColEff(m)];
-		float[] row2List = new float[getColEff(m)];
+	public static double[][] switchRow(double[][] m,int row1, int row2) {
+		double[] row1List = new double[getColEff(m)];
+		double[] row2List = new double[getColEff(m)];
 		row1List = getRow(m, row1);
 		row2List = getRow(m, row2);
 		for (int i = 0; i < getRowEff(m); i++) {
@@ -19,7 +19,7 @@ public class OBE {
 		return m;
 	}
 	
-	public static float[][] multiplyRow(float[][] m,int row, float c) {
+	public static double[][] multiplyRow(double[][] m,int row, double c) {
 		for (int j = 0; j < getColEff(m); j++) {
 			m[row-1][j] = m[row-1][j] * c;
 		}
@@ -27,7 +27,7 @@ public class OBE {
 	}
 	
 	// multiplyMatrix
-	public static float[][] multiplyMatrix(float[][] m, float c) {
+	public static double[][] multiplyMatrix(double[][] m, double c) {
 		for (int i = 0; i < getRowEff(m); i++) {
 			m = multiplyRow(m,i+1,c);
 		}
@@ -35,7 +35,7 @@ public class OBE {
 	}
 
 	// addRow
-	public static float[][] addRow (float[][] m,int row1, int row2, float c) {
+	public static double[][] addRow (double[][] m,int row1, int row2, double c) {
 		for (int j = 0; j < getColEff(m); j++) {
 			m[row1-1][j] = m[row1-1][j] +( m[row2-1][j]*c);
 		}
@@ -43,35 +43,35 @@ public class OBE {
 	}
 		
 	// getRow
-	public static float[] getRow(float[][] m,int row) {
-		float[] list = new float[getColEff(m)];
+	public static double[] getRow(double[][] m,int row) {
+		double[] list = new double[getColEff(m)];
 		for (int i = 0; i < getColEff(m);i++) {
 			list[i] = m[row-1][i];
 		}
 		return list;
 	}
 	// getCol
-	public static float[] getCol(float[][] m,int col) {
-		float[] list = new float[getRowEff(m)];
+	public static double[] getCol(double[][] m,int col) {
+		double[] list = new double[getRowEff(m)];
 		for (int i = 0; i < getRowEff(m);i++) {
 			list[i] = m[i][col-1];
 		}
 		return list;
 	}
 	// getRowEff
-	public static int getRowEff(float[][] m) {
+	public static int getRowEff(double[][] m) {
 		return m.length;
 	}
 	// getColEff
-	public static int getColEff(float[][] m) {
+	public static int getColEff(double[][] m) {
 		return m[0].length;
 	}
 	
 	// deleteRow
-	public static float[][] deleteRow(float[][] m, int row){
+	public static double[][] deleteRow(double[][] m, int row){
 		int rowEff = getRowEff(m)-1;
 		int colEff = getColEff(m);
-		float[][] m2 = new float[rowEff][colEff];
+		double[][] m2 = new double[rowEff][colEff];
 		int currentRow = 0;
 		for (int i = 0; i<getRowEff(m);i++) {
 			if (i != row-1) {
@@ -84,10 +84,10 @@ public class OBE {
 		return m2;
 	}
 	// deleteCol
-	public static float[][] deleteCol(float[][] m, int col){
+	public static double[][] deleteCol(double[][] m, int col){
 		int rowEff = getRowEff(m);
 		int colEff = getColEff(m)-1;
-		float[][] m2 = new float[rowEff][colEff];
+		double[][] m2 = new double[rowEff][colEff];
 		
 		for (int i = 0; i<getRowEff(m);i++) {
 			int currentCol = 0;
@@ -101,7 +101,7 @@ public class OBE {
 		return m2;
 	}
 	
-	public static void printMatrix(float[][] m) {
+	public static void printMatrix(double[][] m) {
 		for (int i = 0; i<m.length;i++) {
 			for (int j = 0; j<m[0].length;j++) {
 				if (m[i][j] == -0.00) {
@@ -109,7 +109,7 @@ public class OBE {
 					System.out.print(" ");
 				}
 				else {
-					System.out.printf("%.2f",m[i][j]);
+					System.out.print(m[i][j]);
 					System.out.print(" ");
 				}
 			}
@@ -117,7 +117,7 @@ public class OBE {
 		}
 	}
 	
-	public static void printList(float[] list) {
+	public static void printList(double[] list) {
 		for (int j = 0; j<list.length;j++) {
 			if (list[j] == -0.00) {
 				System.out.printf("0,00");
@@ -133,14 +133,14 @@ public class OBE {
 	
 	// main driver
 	public static void main(String[] args) {
-		float[][] m = new float[5][10];
-		float[][] theo = {
+		double[][] m = new double[5][10];
+		double[][] theo = {
 				{1,1,-1,-1,1},
 				{2,5,-7,-5,-2},
 				{2,-1,1,3,4},
 				{5,2,-4,2,6}
 				};
-		float[][] theo2 = {
+		double[][] theo2 = {
 				{1,1,-1,-1,1},
 				{2,5,-7,-5,-2},
 				{2,-1,1,3,4},
