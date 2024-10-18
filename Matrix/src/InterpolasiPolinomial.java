@@ -47,7 +47,7 @@ public class InterpolasiPolinomial {
 			int N = scanner.nextInt();
 			
 			// Input points
-			double[][] points = new double[N+1][2];
+			double[][] points = new double[N][2];
 			System.out.println("Enter points (x,y): ");
 			for (int i = 0; i < N; i++) {
 				System.out.print("X-" + (i) + ": ");
