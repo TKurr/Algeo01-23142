@@ -18,12 +18,29 @@ public class OBE {
 		}
 		return m;
 	}
-	
+	// multiplyRow
 	public static double[][] multiplyRow(double[][] m,int row, double c) {
 		for (int j = 0; j < getColEff(m); j++) {
-			m[row-1][j] = m[row-1][j] * c;
+			m[row-1][j] = Math.round((m[row-1][j] * c) * 100.0) / 100.0 ; 
 		}
 		return m;
+	}
+	
+	// multiplyBetweenMatrix
+	public static double[][] multiplyBetweenMatrix(double[][] m, double[][] n) {
+		double[][] result = new double[getRowEff(m)][getColEff(n)];
+		int i, j, k;
+		double jumlah = 0;
+		for (i = 0; i < getRowEff(m); i++) {
+			for (j = 0; j < getColEff(n); j++) {
+				for (k = 0; k < getRowEff(n); k++) {
+					jumlah += (m[i][k] * n[k][j]);
+				}
+				result[i][j] = jumlah;
+				jumlah = 0;
+			}
+		}
+		return result;
 	}
 	
 	// multiplyMatrix

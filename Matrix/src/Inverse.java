@@ -1,11 +1,11 @@
 
 public class Inverse {
 	public static double[][] Transpose(double[][] m){
-		double [][] t = new double[OBE.getRowEff(m)][OBE.getRowEff(m)];
+		double [][] t = new double[OBE.getColEff(m)][OBE.getRowEff(m)];
 		int i, j;
-		for (i = 0; i < OBE.getRowEff(t); i++) {
+		for (i = 0; i < OBE.getColEff(t); i++) {
 			for (j = 0; j < OBE.getRowEff(t); j++) {
-				t[i][j] = m[j][i];
+				t[j][i] = m[i][j];
 			}
 			
 		}
@@ -14,11 +14,11 @@ public class Inverse {
 	}
 	
 	public static double[][] InverseAdjoin(double[][] m){
-		double[][] adjoin, newM = new double[OBE.getRowEff(m)][OBE.getRowEff(m)];
+		double[][] adjoin, newM = new double[OBE.getColEff(m)][OBE.getRowEff(m)];
 		double det;
-		m = Transpose(m);
-		det = Determinan.DeterminanKofaktor(m);
-		adjoin = Kofaktor.MatriksKofaktor(m);
+		adjoin = Transpose(m);
+		det = Determinan.DeterminanReduksiBaris(m);
+		adjoin = Kofaktor.MatriksKofaktor(adjoin);
 		newM = OBE.multiplyMatrix(adjoin, 1/det);
 		return newM;
 	}
