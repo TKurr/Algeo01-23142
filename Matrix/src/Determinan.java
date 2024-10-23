@@ -25,7 +25,9 @@ public class Determinan {
 		} else {
 			double ctr = 0;
 			for (int i = 0; i < OBE.getColEff(m);i++) {
-				ctr = ctr + m[0][i]*Kofaktor.kofaktor(m,0,i);
+				if (m[0][i] != 0) {
+					ctr = ctr + m[0][i]*Kofaktor.kofaktor(m,0,i);
+				} 
 			}
 			return ctr;
 		}
