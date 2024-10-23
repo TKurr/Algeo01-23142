@@ -33,14 +33,7 @@ public class RegresiBerganda {
             	}
             }
         }
-        
-        OBE.printList(XTY);
-        System.out.println("");
-        OBE.printMatrix(test);
-        System.out.println("");
-        test = SPL.elimGaussJordan(test);
-        OBE.printMatrix(test);
-        System.out.println("");
+       
         
         // Invers dari matriks X^T * X
         double[][] XTXInv = Inverse.InverseAdjoin(XTX);
