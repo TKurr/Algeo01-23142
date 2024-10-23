@@ -8,7 +8,7 @@ public class Determinan {
 	
 	public static double DeterminanReduksiBaris(double[][] m){
 		int swap = Eselon.countSwap(m);
-		Eselon.SortMatriks(m);
+		m = Eselon.SortMatriks(m);
 		swap = swap + Eselon.CountSwapRed(m);
 		m = Eselon.ReduksiBaris(m);
 		double result;
@@ -41,7 +41,7 @@ public class Determinan {
 				{ 223.70d, 11093.13d, 16708.19d, 6544.14d },
 				{ 87.77d, 4336.52d, 6544.14d, 2567.87d }
 			};
-		double n = DeterminanReduksiBaris(theo2);
+		double n = DeterminanKofaktor(theo2);
 		System.out.println(n);
 	}
 }
