@@ -12,11 +12,8 @@ public class SPL {
 	public static double[][] inverseSPL(double[][] A, double[][] b) {
 		double[][] x;
 		double[][] inverseA = Inverse.InverseAdjoin(A);
-
 		OBE.printMatrix(inverseA);
 		x = OBE.multiplyBetweenMatrix(inverseA, b);
-
-
 		return x;
 	}
     
@@ -130,24 +127,21 @@ public class SPL {
 		};
 	
 		double[][] b = {
-			{5},
-			{3},
-			{1}
+			{1},
+			{0},
+			{2}
 		};
-	
-
-		double[][] x = inverseSPL(A, b);
-		OBE.printMatrix(x);
-		
-		
-		
-         double[][] m = {
+		double[][] m = {
 		 		{-1,2,-3},
 		 		{2,0,1},
 		 		{3,-4,4},
 		 };
          
          double[] n = {1,0,2};
+
+		double[][] x = inverseSPL(m, b);
+		OBE.printMatrix(x);
+         
          System.out.println("");
          double[] cramer = Cramer(m, n);
          OBE.printList(cramer);

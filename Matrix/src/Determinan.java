@@ -7,14 +7,15 @@ public class Determinan {
 	}
 	
 	public static double DeterminanReduksiBaris(double[][] m){
-		int swap = Eselon.countSwap(m);
-		m = Eselon.SortMatriks(m);
-		swap = swap + Eselon.CountSwapRed(m);
-		m = Eselon.ReduksiBaris(m);
+		double[][] mOut = m;
+		int swap = Eselon.countSwap(mOut);
+		mOut = Eselon.SortMatriks(mOut);
+		swap = swap + Eselon.CountSwapRed(mOut);
+		mOut = Eselon.ReduksiBaris(mOut);
 		double result;
 		result = 1;
-		for (int i = 0; i < OBE.getRowEff(m); i++) {
-			result *= m[i][i];
+		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
+			result *= mOut[i][i];
 		}
 		return (double) (result*Math.pow(-1, swap));
 	}

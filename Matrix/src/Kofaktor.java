@@ -5,12 +5,13 @@ public class Kofaktor {
 	}
 	
 	public static double kofaktor(double[][] m, int i, int j) {
-		m = OBE.deleteCol(m, j+1);
-		m = OBE.deleteRow(m, i+1);
-		if (isMatriks2x2(m)) {
-			return (double) (Math.pow(-1, i+j)*Determinan.minorMatriks(m));
+		double[][] mOut = m;
+		mOut = OBE.deleteCol(mOut, j+1);
+		mOut = OBE.deleteRow(mOut, i+1);
+		if (isMatriks2x2(mOut)) {
+			return (double) (Math.pow(-1, i+j)*Determinan.minorMatriks(mOut));
 		} else {
-			return (double) (Math.pow(-1, i+j)*Determinan.DeterminanKofaktor(m));
+			return (double) (Math.pow(-1, i+j)*Determinan.DeterminanKofaktor(mOut));
 		}
 	}
 	
