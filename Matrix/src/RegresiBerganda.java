@@ -9,9 +9,6 @@ public class RegresiBerganda {
         XT = Inverse.Transpose(X);
         double[][] XTX = new double[n][n];
         XTX = OBE.multiplyBetweenMatrix(XT, X);
-
-        OBE.printMatrix(XTX);
-        System.out.println("");
         
         // Matriks X^T * Y
         double[] XTY = new double[n];
@@ -22,19 +19,6 @@ public class RegresiBerganda {
         }
        
 
-        // Cobain
-        double[][] test = new double[n][m+1];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m+1; j++) {
-            	if (j == m) {
-            		test[i][j] = XTY[i];
-            	} else {
-            		test[i][j] = XTX[i][j];
-            	}
-            }
-        }
-       
-        
         // Invers dari matriks X^T * X
         double[][] XTXInv = Inverse.InverseAdjoin(XTX);
         
