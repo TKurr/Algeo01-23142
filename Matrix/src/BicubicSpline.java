@@ -58,20 +58,21 @@ public class BicubicSpline {
 	}
 	
 	public static double[][] addMatriksY(double[][] m, double[][] grid){
+		double [][] mOut = m;
 		for (int idx = 0; idx < 16; idx++) {
 			int i = (idx)%2 + 1;
 			int j = Math.floorDiv(((idx)%4),2) + 1;
 			if (idx < 4) {
-				m[idx][16] = grid[i][j];
+				mOut[idx][16] = grid[i][j];
 			} else if (idx >= 4 && idx < 8) {
-				m[idx][16] = derivativeX(grid,i,j);
+				mOut[idx][16] = derivativeX(grid,i,j);
 			} else if (idx >= 8 && idx < 12) {
-				m[idx][16] = derivativeY(grid,i,j);
+				mOut[idx][16] = derivativeY(grid,i,j);
 			} else {
-				m[idx][16] = derivativeXY(grid,i,j);
+				mOut[idx][16] = derivativeXY(grid,i,j);
 			}
 		}
-		return m;
+		return mOut;
 	}
 	
 	public static double[] getListOfA(double[][] m) {

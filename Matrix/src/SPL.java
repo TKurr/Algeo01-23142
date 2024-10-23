@@ -1,11 +1,12 @@
 
 public class SPL {
     public static double[][] elimGaussJordan(double[][] m){
-		Eselon.SortMatriks(m);
-        m = Eselon.ReduksiBaris(m);
-        m = Eselon.MatriksEselon(m);
-        m = Eselon.MatriksEselonTereduksi(m);
-        return m;
+    	double [][] mOut = m;
+		Eselon.SortMatriks(mOut);
+        mOut = Eselon.ReduksiBaris(mOut);
+        mOut = Eselon.MatriksEselon(mOut);
+        mOut = Eselon.MatriksEselonTereduksi(mOut);
+        return mOut;
     }
 
 	public static double[][] inverseSPL(double[][] A, double[][] b) {

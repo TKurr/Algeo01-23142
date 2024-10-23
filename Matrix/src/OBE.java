@@ -123,10 +123,11 @@ public class OBE {
 	
 	public static double[][] insertCol(double[][] m, int idx, double [][] inputM) {
 		printMatrix(m);
-		for (int i = 0; i<getRowEff(m);i++) {
-			m[i][idx] = inputM[i][0];
+		double [][] mOut = m;
+		for (int i = 0; i<getRowEff(mOut);i++) {
+			mOut[i][idx] = inputM[i][0];
 		}
-		return m;
+		return mOut;
 	}
 	
 	public static void printMatrix(double[][] m) {

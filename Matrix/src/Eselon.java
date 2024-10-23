@@ -2,81 +2,87 @@
 public class Eselon {
 	// column Elimination (eliminates column to zero)
 	public static double[][] colElim(double[][] m, int idx) {
-		int colIdx = countZero(m, idx);
+		double [][] mOut = m;
+		int colIdx = countZero(mOut, idx);
 		double temp = 1;
-		for (int i = idx + 1; i < OBE.getRowEff(m); i++) {
-			temp = m[i][idx] / m[idx][colIdx];
-			for (int j = 0; j < OBE.getColEff(m); j++) {
-				m[i][j] -= (temp * m[idx][j]);
+		for (int i = idx + 1; i < OBE.getRowEff(mOut); i++) {
+			temp = mOut[i][idx] / mOut[idx][colIdx];
+			for (int j = 0; j < OBE.getColEff(mOut); j++) {
+				mOut[i][j] -= (temp * mOut[idx][j]);
 			}
 		}
-		return m;
+		return mOut;
 	}
 
 	// column Elimination 2 (utk eselon tereduksi)
 	public static double[][] colElim2(double[][] m, int idx) {
+		double [][] mOut = m;
 		int colIdx = 0;
-		for (int i = 0; i < OBE.getRowEff(m); i++) {
-			if (m[idx][i] == 1) {
+		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
+			if (mOut[idx][i] == 1) {
 				colIdx = i;
 				break;
 			}
 		}
-		for (int i = 0; i < OBE.getRowEff(m); i++) {
+		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
 
 			if (i != idx) {
-				double c = (-1) * m[i][colIdx] / m[idx][colIdx];
-				m = OBE.addRow(m, i + 1, idx + 1, c);
+				double c = (-1) * mOut[i][colIdx] / mOut[idx][colIdx];
+				mOut = OBE.addRow(mOut, i + 1, idx + 1, c);
 			}
 		}
 
-		return m;
+		return mOut;
 	}
 
 	// row normalization (sets the first value to one)
 	public static double[][] rowNorm(double[][] m, int idx) {
+		double [][] mOut = m;
 		double x = 1;
-		for (int i = 0; i < OBE.getColEff(m); i++) {
-			if (m[idx][i] != 0) {
-				x = m[idx][i];
+		for (int i = 0; i < OBE.getColEff(mOut); i++) {
+			if (mOut[idx][i] != 0) {
+				x = mOut[idx][i];
 				break;
 			}
 		}
-		for (int i = 0; i < OBE.getRowEff(m); i++) {
-			for (int j = 0; j < OBE.getColEff(m); j++) {
+		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
+			for (int j = 0; j < OBE.getColEff(mOut); j++) {
 				if (i == idx) {
-					m[i][j] = m[i][j] / x;
+					mOut[i][j] = mOut[i][j] / x;
 				}
 			}
 		}
-		return m;
+		return mOut;
 	}
 
 	// Eselon
 	public static double[][] MatriksEselon(double[][] m) {
-		for (int i = 0; i < OBE.getRowEff(m); i++) {
-			rowNorm(m, i);
+		double [][] mOut = m;
+		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
+			rowNorm(mOut, i);
 		}
-		return m;
+		return mOut;
 	}
 
 	// Eselon tereduksi
 	public static double[][] MatriksEselonTereduksi(double[][] m) {
-		for (int i = OBE.getRowEff(m) - 1; i > 0; i--) {
-			m = colElim2(m, i);
+		double [][] mOut = m;
+		for (int i = OBE.getRowEff(mOut) - 1; i > 0; i--) {
+			mOut = colElim2(mOut, i);
 		}
-		return m;
+		return mOut;
 	}
 
 	// Reduksi Baris
 	public static double[][] ReduksiBaris(double[][] m) {
-		for (int i = 0; i < OBE.getRowEff(m); i++) {
-			SortMatriks(m);
-			if (i < (OBE.getRowEff(m))) {
-				colElim(m, i);
+		double [][] mOut = m;
+		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
+			SortMatriks(mOut);
+			if (i < (OBE.getRowEff(mOut))) {
+				colElim(mOut, i);
 			}
 		}
-		return m;
+		return mOut;
 	}
 
 	public static int CountSwapRed(double[][] m) {
