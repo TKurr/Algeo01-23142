@@ -89,7 +89,39 @@ public class SPL {
 		return result;
 
     }
+    
+    public static double[][] copyMatrix(double[][] m){
+    	double[][] mOut = new double[OBE.getRowEff(m)][OBE.getColEff(m)];
+    	for (int i = 0; i < OBE.getRowEff(mOut); i++) {
+    		for (int j = 0; j < OBE.getColEff(mOut); j++) {
+    			mOut[i][j] = m[i][j];
+    		}
+    	}
+    	return mOut;
+    }
 
+    public static double[] Cramer(double[][] m, double[] n) {
+    	int row = OBE.getRowEff(m);
+    	int col = OBE.getColEff(m);
+    	double det, tempDet;
+    	double[][] copy = new double[row][col];
+    	det = Determinan.DeterminanKofaktor(m);
+    	double[] result = new double[col];
+    	for (int i = 0; i < row; i++) {
+    		copy = copyMatrix(m);
+    		for (int j = 0; j < row; j++) {
+        		for (int k = 0; k < col; k++) {
+        			if (k == i) {
+        				copy[j][k] = n[j];
+        			}
+        		}
+        	}
+    		tempDet = Determinan.DeterminanKofaktor(copy);
+    		result[i] = tempDet/det;
+    	}
+    	return result;
+    }
+    
     public static void main(String[] args) {
 		double[][] A = {
 			{1, 2, 3},
@@ -106,12 +138,19 @@ public class SPL {
 
 		double[][] x = inverseSPL(A, b);
 		OBE.printMatrix(x);
-
-        // double[][] m = {
-		// 		{0,0,1,3},
-		// 		{0,1,0,5},
-		// 		{1,0,0,5},
-		// };
+		
+		
+		
+         double[][] m = {
+		 		{-1,2,-3},
+		 		{2,0,1},
+		 		{3,-4,4},
+		 };
+         
+         double[] n = {1,0,2};
+         System.out.println("");
+         double[] cramer = Cramer(m, n);
+         OBE.printList(cramer);
 
         // m = elimGaussJordan(m);
         // System.out.println(isSolution(m));
