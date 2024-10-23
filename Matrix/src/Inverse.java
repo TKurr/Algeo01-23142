@@ -30,11 +30,12 @@ public class Inverse {
 				{2,5,3},
 				{1,0,8},
 		};
+		
 		OBE.printMatrix(theo);
-		System.out.println("");
-		theo = Transpose(theo);
-		OBE.printMatrix(theo);
-		System.out.println("");
+		// System.out.println("");
+		// theo = Transpose(theo);
+		// OBE.printMatrix(theo);
+		// System.out.println("");
 		theo = InverseAdjoin(theo);
 		OBE.printMatrix(theo);
 		
