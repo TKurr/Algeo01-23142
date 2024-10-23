@@ -24,7 +24,7 @@ public class InterpolasiPolinomial {
             matrix[i][n] = y;  // Last column = y
         }
 		double[][] solvedMatrix = SPL.elimGaussJordan(matrix);
-		double[] solution = SPL.listSolution(solvedMatrix);
+		double[] solution = SPL.gaussJordanSPL(solvedMatrix);
 	
 		return solution;
 	}

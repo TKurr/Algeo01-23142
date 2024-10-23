@@ -76,8 +76,7 @@ public class BicubicSpline {
 	}
 	
 	public static double[] getListOfA(double[][] m) {
-		m = SPL.elimGaussJordan(m);
-		return SPL.listSolution(m);
+		return SPL.gaussJordanSPL(m);
 	}
 	
 	public static double finalFunction(double x, double y, double[] a) {

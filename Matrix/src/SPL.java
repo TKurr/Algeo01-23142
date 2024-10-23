@@ -1,5 +1,7 @@
 
 public class SPL {
+	
+	
     public static double[][] elimGaussJordan(double[][] m){
     	double [][] mOut = m;
 		mOut = Eselon.SortMatriks(mOut);
@@ -8,13 +10,34 @@ public class SPL {
         mOut = Eselon.MatriksEselonTereduksi(mOut);
         return mOut;
     }
+    
+    public static double[][] elimGauss(double[][] m){
+    	double[][] mOut = m;
+		mOut = Eselon.SortMatriks(mOut);
+        mOut = Eselon.ReduksiBaris(mOut);
+        mOut = Eselon.MatriksEselon(mOut);
+        return mOut;
+    }
+    
+    public static double[] gaussSPL(double[][] m){
+    	double[][] mOut = elimGauss(m);
+    	double[] listSolution = new double[OBE.getRowEff(mOut)];
+    	for (int i = OBE.getRowEff(mOut)-1;i>=0;i--) {
+    		double temp = mOut[i][OBE.getColEff(mOut)-1];
+    		for (int j = OBE.getColEff(mOut)-2;j > i ;j--) {
+    			temp = temp - mOut[i][j]*listSolution[j];
+    		}
+    		listSolution[i] = temp;
+    	}
+        return listSolution;
+    }
 
-	public static double[][] inverseSPL(double[][] A, double[][] b) {
+	public static double[] inverseSPL(double[][] A, double[][] b) {
 		double[][] x;
 		double[][] inverseA = Inverse.InverseAdjoin(A);
-		OBE.printMatrix(inverseA);
 		x = OBE.multiplyBetweenMatrix(inverseA, b);
-		return x;
+		double[] list = OBE.getCol(x, 1);
+		return list;
 	}
     
     public static boolean isSolution(double[][] m) {
@@ -41,6 +64,7 @@ public class SPL {
     }
 
     public static void printParametric(double[][] m) {
+    	// m adalah hasil dari elim gauss jordan
 		int i,j;
 		for (i = 0; i < OBE.getRowEff(m); i++) {
 			String stringTemp = "X" + (i+1);
@@ -76,12 +100,14 @@ public class SPL {
 
     }
     
-    public static double[] listSolution(double[][] m) {
+    public static double[] gaussJordanSPL(double[][] m) {
     	// matriks sudah berbentuk matriks eselon tereduksi
     	// solusi matriks unik
-		double[] result = new double[OBE.getRowEff(m)];
+    	double[][] mOut = m;
+    	mOut = elimGaussJordan(mOut);
+		double[] result = new double[OBE.getRowEff(mOut)];
 		for (int i = 0; i < result.length; i++) {
-			result[i] = m[i][result.length];
+			result[i] = mOut[i][result.length];
 		}
 		return result;
 
@@ -97,7 +123,7 @@ public class SPL {
     	return mOut;
     }
 
-    public static double[] Cramer(double[][] m, double[] n) {
+    public static double[] Cramer(double[][] m, double[][] n) {
     	int row = OBE.getRowEff(m);
     	int col = OBE.getColEff(m);
     	double det, tempDet;
@@ -109,7 +135,7 @@ public class SPL {
     		for (int j = 0; j < row; j++) {
         		for (int k = 0; k < col; k++) {
         			if (k == i) {
-        				copy[j][k] = n[j];
+        				copy[j][k] = n[j][0];
         			}
         		}
         	}
@@ -121,30 +147,25 @@ public class SPL {
     
     public static void main(String[] args) {
 		double[][] A = {
-			{1, 2, 3},
-			{2, 5, 3},
-			{1, 0, 8}
+			{1, 2, 3,1},
+			{2, 5, 3,0},
+			{1, 0, 8,2}
 		};
-	
-		double[][] b = {
-			{1},
-			{0},
-			{2}
-		};
+		OBE.printList(gaussSPL(A));
+		OBE.printList(gaussJordanSPL(A));
+		
 		double[][] m = {
-		 		{-1,2,-3},
-		 		{2,0,1},
-		 		{3,-4,4},
+		 		{1,2,3},
+		 		{2,5,3},
+		 		{1,0,8},
 		 };
-         
-         double[] n = {1,0,2};
-
-		double[][] x = inverseSPL(m, b);
-		OBE.printMatrix(x);
-         
-         System.out.println("");
-         double[] cramer = Cramer(m, n);
-         OBE.printList(cramer);
+		double[][] b = {
+				{1},
+				{0},
+				{2}
+			};
+		OBE.printList(inverseSPL(m, b));
+        OBE.printList(Cramer(m, b));
 
         // m = elimGaussJordan(m);
         // System.out.println(isSolution(m));
