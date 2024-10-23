@@ -23,7 +23,7 @@ public class OBE {
 	public static double[][] multiplyRow(double[][] m,int row, double c) {
 		double[][] mOut = m;
 		for (int j = 0; j < getColEff(mOut); j++) {
-			mOut[row-1][j] = Math.round((mOut[row-1][j] * c) * 100.0) / 100.0 ; 
+			mOut[row-1][j] = (mOut[row-1][j] * c); 
 		}
 		return mOut;
 	}
@@ -175,6 +175,16 @@ public class OBE {
 				{2,-1,1,3,4},
 				{5,2,-4,2,6}
 				};
+		double[][] theo3 = {
+				{1,2,3},
+				{4,5,6},
+				{7,8,9},
+				};
+		double[][] theo4 = {
+				{9,8,7},
+				{6,5,4},
+				{3,2,1},
+				};
 		for (int i = 0; i<getRowEff(m);i++) {
 			for (int j = 0; j<getColEff(m);j++) {
 				m[i][j] = (i-j)*(i+j);
@@ -207,6 +217,10 @@ public class OBE {
 		System.out.println("");
 		theo2 = Eselon.MatriksEselon(theo2);
 		printMatrix(theo2);
+		double [][] theo5 = new double[3][3];
+		System.out.println("");
+		theo5 = multiplyBetweenMatrix(theo3, theo4);
+		printMatrix(theo5);
 //		printMatrix(theo);
 //		System.out.println("");
 //		theo = addRow(theo, 0);

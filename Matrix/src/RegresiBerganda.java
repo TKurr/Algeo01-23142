@@ -9,6 +9,9 @@ public class RegresiBerganda {
         XT = Inverse.Transpose(X);
         double[][] XTX = new double[n][n];
         XTX = OBE.multiplyBetweenMatrix(XT, X);
+
+        OBE.printMatrix(XTX);
+        System.out.println("");
         
         // Matriks X^T * Y
         double[] XTY = new double[n];
@@ -17,20 +20,37 @@ public class RegresiBerganda {
                 XTY[i] += XT[i][j] * Y[j];
             }
         }
+       
+
+        // Cobain
+        double[][] test = new double[n][m+1];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m+1; j++) {
+            	if (j == m) {
+            		test[i][j] = XTY[i];
+            	} else {
+            		test[i][j] = XTX[i][j];
+            	}
+            }
+        }
+        
+        OBE.printList(XTY);
+        System.out.println("");
+        OBE.printMatrix(test);
+        System.out.println("");
+        test = SPL.elimGaussJordan(test);
+        OBE.printMatrix(test);
+        System.out.println("");
         
         // Invers dari matriks X^T * X
         double[][] XTXInv = Inverse.InverseAdjoin(XTX);
-//        OBE.printMatrix(XTXInv);
-//        System.out.println("");
-//        OBE.printMatrix(XTXInv);
-//        System.out.println(""); // for debugging
+        
         // Koefisien regresi: (X^T * X)^-1 * (X^T * Y)
         double[] coefficients = new double[n];
         double sum = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
             	coefficients[i] += XTXInv[i][j] * XTY[j];
-            	
             }
         }
         
