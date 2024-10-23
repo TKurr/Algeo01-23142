@@ -2,7 +2,7 @@
 public class SPL {
     public static double[][] elimGaussJordan(double[][] m){
     	double [][] mOut = m;
-		Eselon.SortMatriks(mOut);
+		mOut = Eselon.SortMatriks(mOut);
         mOut = Eselon.ReduksiBaris(mOut);
         mOut = Eselon.MatriksEselon(mOut);
         mOut = Eselon.MatriksEselonTereduksi(mOut);

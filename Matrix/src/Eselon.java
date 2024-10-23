@@ -77,7 +77,7 @@ public class Eselon {
 	public static double[][] ReduksiBaris(double[][] m) {
 		double [][] mOut = m;
 		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
-			SortMatriks(mOut);
+			mOut = SortMatriks(mOut);
 			if (i < (OBE.getRowEff(mOut))) {
 				colElim(mOut, i);
 			}
@@ -87,11 +87,12 @@ public class Eselon {
 
 	public static int CountSwapRed(double[][] m) {
 		int ctr = 0;
-		for (int i = 0; i < OBE.getRowEff(m); i++) {
-			countSwap(m);
-			SortMatriks(m);
-			if (i < (OBE.getRowEff(m))) {
-				colElim(m, i);
+		double [][] mOut = m;
+		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
+			countSwap(mOut);
+			mOut = SortMatriks(mOut);
+			if (i < (OBE.getRowEff(mOut))) {
+				colElim(mOut, i);
 			}
 		}
 		return ctr;
@@ -126,20 +127,22 @@ public class Eselon {
 		return ctr;
 	}
 
-	public static void SortMatriks(double[][] m) {
+	public static double[][] SortMatriks(double[][] m) {
 		int n = OBE.getRowEff(m);
+		double[][] mOut = m;
 		boolean swapped;
 		for (int i = 0; i < n - 1; i++) {
 			swapped = false;
 			for (int j = 0; j < n - i - 1; j++) {
-				if (countZero(m, j) > countZero(m, j + 1)) {
-					OBE.switchRow(m, j + 1, j + 2);
+				if (countZero(mOut, j) > countZero(mOut, j + 1)) {
+					OBE.switchRow(mOut, j + 1, j + 2);
 					swapped = true;
 				}
 			}
 			if (!swapped)
 				break;
 		}
+		return mOut;
 	}
 
 	public static void main(String[] args) {
@@ -150,7 +153,7 @@ public class Eselon {
 				{ 87.77d, 4336.52d, 6544.14d, 2567.87d }
 		};
 		// System.out.println(countSwap(theo));
-		SortMatriks(theo);
+		theo =SortMatriks(theo);
 		theo = ReduksiBaris(theo);
 		OBE.printMatrix(theo);
 		double n = Determinan.DeterminanReduksiBaris(theo);
