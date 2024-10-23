@@ -6,10 +6,8 @@ public class Inverse {
 		for (i = 0; i < OBE.getColEff(t); i++) {
 			for (j = 0; j < OBE.getRowEff(t); j++) {
 				t[j][i] = m[i][j];
-			}
-			
+			}	
 		}
-		
 		return t;
 	}
 	
@@ -17,7 +15,7 @@ public class Inverse {
 		double[][] adjoin, newM = new double[OBE.getColEff(m)][OBE.getRowEff(m)];
 		double det;
 		adjoin = Transpose(m);
-		det = Determinan.DeterminanReduksiBaris(m);
+		det = Determinan.DeterminanKofaktor(m);
 		adjoin = Kofaktor.MatriksKofaktor(adjoin);
 		newM = OBE.multiplyMatrix(adjoin, 1/det);
 		return newM;
