@@ -4,26 +4,28 @@ public class OBE {
 	public static double[][] switchRow(double[][] m,int row1, int row2) {
 		double[] row1List = new double[getColEff(m)];
 		double[] row2List = new double[getColEff(m)];
-		row1List = getRow(m, row1);
-		row2List = getRow(m, row2);
-		for (int i = 0; i < getRowEff(m); i++) {
-			for (int j = 0; j < getColEff(m); j++) {
+		double[][] mOut = m;
+		row1List = getRow(mOut, row1);
+		row2List = getRow(mOut, row2);
+		for (int i = 0; i < getRowEff(mOut); i++) {
+			for (int j = 0; j < getColEff(mOut); j++) {
 				if (i == row1-1) {
-					m[i][j] = row2List[j];
+					mOut[i][j] = row2List[j];
 				}
 				if (i == row2-1) {
-					m[i][j] = row1List[j];
+					mOut[i][j] = row1List[j];
 				}
 			}
 		}
-		return m;
+		return mOut;
 	}
 	// multiplyRow
 	public static double[][] multiplyRow(double[][] m,int row, double c) {
-		for (int j = 0; j < getColEff(m); j++) {
-			m[row-1][j] = Math.round((m[row-1][j] * c) * 100.0) / 100.0 ; 
+		double[][] mOut = m;
+		for (int j = 0; j < getColEff(mOut); j++) {
+			mOut[row-1][j] = Math.round((mOut[row-1][j] * c) * 100.0) / 100.0 ; 
 		}
-		return m;
+		return mOut;
 	}
 	
 	// multiplyBetweenMatrix
@@ -45,10 +47,11 @@ public class OBE {
 	
 	// multiplyMatrix
 	public static double[][] multiplyMatrix(double[][] m, double c) {
-		for (int i = 0; i < getRowEff(m); i++) {
-			m = multiplyRow(m,i+1,c);
+		double[][] mOut = m;
+		for (int i = 0; i < getRowEff(mOut); i++) {
+			mOut = multiplyRow(mOut,i+1,c);
 		}
-		return m;
+		return mOut;
 	}
 
 	// addRow
@@ -116,6 +119,14 @@ public class OBE {
 			}
 		}
 		return m2;
+	}
+	
+	public static double[][] insertCol(double[][] m, int idx, double [][] inputM) {
+		printMatrix(m);
+		for (int i = 0; i<getRowEff(m);i++) {
+			m[i][idx] = inputM[i][0];
+		}
+		return m;
 	}
 	
 	public static void printMatrix(double[][] m) {
