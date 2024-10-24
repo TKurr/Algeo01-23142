@@ -112,14 +112,30 @@ public class BicubicSpline {
 		mOut = matrixSolution(a);
 		return mOut;
 	}
+	
+	public static double bicubic(double[][] m,double x, double y) {
+		double[][] mOut = addMatriksX();
+		for (int i = 0; i < 16; i++) {
+			int idx = Math.floorDiv(i, 4);
+			int jdx = i%4;
+			mOut[i][16] = m[idx][jdx];
+		}
+		double[] a = getListOfA(mOut);
+		return finalFunction((double) x, (double) y, a);
+	}
 
 	public static void main(String[] args) {
 		double[][] testMatrix = {
-				{ 255, 128, 64, 32 },
-				{ 255, 128, 64, 32 },
-				{ 255, 128, 64, 32 },
-				{ 255, 128, 64, 32 }
+				{ 21, 98, 125, 152},
+				{ 51, 101, 161, 59 },
+				{ 0, 42, 72, 210 },
+				{ 16, 12, 81, 96 }
 		};
-		OBE.printMatrix(pixelSmoothening(testMatrix));
+		OBE.printMatrix(testMatrix);
+		System.out.print("X: ");
+		double x = OBE.inputDouble();
+		System.out.print("Y: ");
+		double y = OBE.inputDouble();
+		System.out.println(bicubic(testMatrix,x,y));
 	}
 }
