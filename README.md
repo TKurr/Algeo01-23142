@@ -7,6 +7,47 @@
 
 This project is a Java-based terminal application designed to solve various linear algebra problems. The program can handle systems of linear equations (SPL), calculate matrix determinants and inverses, perform polynomial interpolation, bicubic spline interpolation, and conduct multiple regression analyses.
 
+## Authors
+
+1. **Nathanael Rachmat** (13523142)
+2. **Andrew Tedjapratama** (13523148)
+3. **Theo Kurniady** (13523154)
+
+Group Name: **Lastesest**
+
+## Installing / Getting Started
+
+### Requirements
+
+-   Java Development Kit (JDK) version 8 or higher
+-   A Java-capable IDE (e.g., Eclipse, IntelliJ IDEA), or you can use a text editor with terminal support.
+
+### Running the Program
+
+1. **Clone the Repository**:
+   Open a terminal and run the following command to clone the repository:
+
+    ```bash
+    git clone https://https://github.com/Stahlynx/Algeo01-23142
+    ```
+
+2. **Open the Project in a Java-capable IDE**:
+
+    - Open your preferred Java IDE (e.g., **Eclipse** or **IntelliJ IDEA**).
+    - Import the cloned project by selecting **File** > **Open Projects from File System...** or similar options, depending on your IDE.
+    - Navigate to the directory where you cloned the repository, and open it.
+
+3. **Run the Main Class**:
+
+    - In the **src** directory, locate the `main.java.LinearAlgebraCalculator` (or the appropriate main class).
+    - Right-click the file and select **Run As** > **Java Application** (in Eclipse) or the equivalent option in other IDEs.
+
+    The program will start running in the terminal provided by your IDE.
+
+4. **Input and Output**:
+
+    - The program accepts input via the terminal or from `.txt` files for matrix data.
+
 ## Features
 
 -   **Solving Systems of Linear Equations (SPL)**:
@@ -36,36 +77,6 @@ This project is a Java-based terminal application designed to solve various line
     -   Accepts input from the terminal (manual input) or from text files (matrix data).
     -   Outputs results directly to the terminal or to a downloadable `.txt` file.
 
-## Technologies Used
-
--   **Java**
-
-## Authors
-
-1. **Nathanael Rachmat** (13523142)
-2. **Andrew Tedjapratama** (13523148)
-3. **Theo Kurniady** (13523154)
-
-Group Name: **Lastesest**
-
-## Installing / Getting Started
-
-### Requirements
-
--   Java Development Kit (JDK) version 8 or higher
--   A Java-capable IDE (e.g., Eclipse, IntelliJ IDEA), or you can use a text editor with terminal support.
-
-### Running the Program
-
-1. **Clone the Repository**:
-   Open a terminal and run the following command to clone the repository:
-
-    ```bash
-    git clone https://https://github.com/Stahlynx/Algeo01-23142
-    ```
-
-2.
-
 ## Usage
 
 Once the program is running, you can use it to perform various linear algebra operations. Below are some of the main features:
@@ -77,3 +88,7 @@ Once the program is running, you can use it to perform various linear algebra op
 -   Interpolation: Use polynomial interpolation or bicubic spline interpolation to estimate unknown values from known data points.
 
 -   Regression Analysis: Input data for regression analysis to determine relationships between variables or predict future outcomes.
+
+## Technologies Used
+
+-   **Java**
