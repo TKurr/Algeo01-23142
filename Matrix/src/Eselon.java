@@ -3,7 +3,7 @@ public class Eselon {
 	// column Elimination (eliminates column to zero)
 	public static double[][] colElim(double[][] m, int idx) {
 		double [][] mOut = m;
-		int colIdx = countZero(mOut, idx);
+		int colIdx = Math.min(countZero(mOut, idx),OBE.getColEff(mOut)-1);
 		double temp = 1;
 		for (int i = idx + 1; i < OBE.getRowEff(mOut); i++) {
 			temp = mOut[i][colIdx] / mOut[idx][colIdx];

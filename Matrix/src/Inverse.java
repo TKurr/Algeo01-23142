@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Inverse {
@@ -63,9 +65,10 @@ public class Inverse {
 	
 	public static void displayMenuInv() {
     	System.out.println("MENU");
-    	System.out.println("0. Baca Ulang Matriks");
 		System.out.println("1. Metode Adjoin");
 		System.out.println("2. Metode OBE");
+    	System.out.println("3. Baca Matriks");
+    	System.out.println("4. Baca Matriks dari File");
 		System.out.println("3. Lihat spesifikasi matriks");
 		System.out.println("4. Keluar");
     }
@@ -85,8 +88,8 @@ public class Inverse {
 	static int n = 0;
     static double[][] currentMatrix = new double[1][1];
     
-	public static void main(String[] args) {
-		readInv();
+	public static void main(String[] args) throws FileNotFoundException {
+		
 		while (true) {
 			displayMenuInv();
 			Scanner myObj = new Scanner(System.in);  // Create a Scanner object
@@ -127,8 +130,49 @@ public class Inverse {
 		    	}
 		    	myObj.nextLine();
 		    } else if (menu.equals("3")) {
-		    	currentMatrix = OBE.viewMatrix(currentMatrix);
+		    	readInv();
 		    } else if (menu.equals("4")) {
+		    	String filename;
+		    	System.out.println("Tulis nama file disini");
+		    	filename = myObj.nextLine();
+		    	if (InputFile.checkFile(filename)) {
+		    		File file = InputFile.getFile(filename);
+			    	Scanner scanner = new Scanner(file);
+			    	
+			    	int totalLine = 0;
+			    	int lineLength = 0;
+			    	String lineTemp = scanner.nextLine();  
+	                String[] valuesTemp = lineTemp.split(" ");
+	                lineLength = valuesTemp.length;
+	                totalLine = totalLine + 1;
+			    	
+			    	while (scanner.hasNextLine()) {
+		                String line = scanner.nextLine();  
+		                String[] values = line.split(" ");
+		                lineLength = values.length;
+			            totalLine = totalLine + 1;
+			            }
+			    	scanner.close();
+			    	
+			    	Scanner scanner2 = new Scanner(file);
+			    	double[][] newM = new double[totalLine][lineLength];
+			    	
+			    	int ctr = 0;
+			    	while (scanner2.hasNextLine()) {
+		                String line = scanner2.nextLine();  
+		                String[] values = line.split(" ");
+		                for (int i = 0; i < values.length; i++) {
+			                    newM[ctr][i] = Double.parseDouble(values[i]);
+			                }
+		                ctr = ctr+1;
+			            }
+			    	scanner2.close();
+			    	currentMatrix = newM;
+		    	}
+		    	
+		    } else if (menu.equals("5")) {
+		    	currentMatrix = OBE.viewMatrix(currentMatrix);
+		    } else if (menu.equals("6")) {
 		    	break;
 		    } else {
 		    	System.out.println("Input tidak valid!");
