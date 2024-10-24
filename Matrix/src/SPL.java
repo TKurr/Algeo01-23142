@@ -139,15 +139,16 @@ public class SPL {
     }
     
     public static void displayMenuSPL() {
-    	System.out.println("MENU");
-    	System.out.println("0. Baca Ulang Matriks");
+    	System.out.println("MENU");	
 		System.out.println("1. Metode Eliminasi Gauss");
 		System.out.println("2. Metode Eliminasi Gauss Jordan");
 		System.out.println("3. Metode Matriks Balikan");
 		System.out.println("4. Kaidah Cramer");
-		System.out.println("5. Lihat spesifikasi matriks A");
-		System.out.println("6. Lihat spesifikasi matriks B");
-		System.out.println("7. Keluar");
+		System.out.println("5. Baca Matriks");
+		System.out.println("6. Baca Input dari File");
+		System.out.println("7. Lihat spesifikasi matriks A");
+		System.out.println("8. Lihat spesifikasi matriks B");
+		System.out.println("9. Keluar");
     }
     
     public static void printSolution(double[] listSolution) {
@@ -203,8 +204,8 @@ public class SPL {
     static double[][] currentMatrixA = new double[1][1];
     static  double[][] currentMatrixB = new double[1][1];
     
-    public static void main(String[] args) {
-    		readSPL();
+    public static void main(String[] args) throws FileNotFoundException {
+    		
 			while (true) {
 				displayMenuSPL();
 				Scanner myObj = new Scanner(System.in);  // Create a Scanner object
@@ -213,9 +214,7 @@ public class SPL {
 			    double[][] m = augmentMatrix(A,B);
 			    System.out.println("Pilih satu menu (nomor):");
 			    String menu = myObj.nextLine(); 
-			    if (menu.equals("0")) {
-			    	readSPL();
-			    }
+	
 			    if (menu.equals("1")) {
 			    	if (isNoSolution(m)) {
 			    		System.out.println("Tidak ada solusi");
@@ -281,10 +280,67 @@ public class SPL {
 			    	}
 			    	myObj.nextLine(); 
 			    } else if (menu.equals("5")) {
-			    	currentMatrixA = OBE.viewMatrix(currentMatrixA);
+			    	readSPL();
+			    	
 			    } else if (menu.equals("6")) {
-			    	currentMatrixB = OBE.viewMatrix(currentMatrixB);
+			    	
+			    	String filename;
+			    	System.out.println("Tulis nama file disini");
+			    	filename = myObj.nextLine();
+			    	if (InputFile.checkFile(filename)) {
+			    		File file = InputFile.getFile(filename);
+				    	Scanner scanner = new Scanner(file);
+				    	
+				    	int totalLine = 0;
+				    	int lineLength = 0;
+				    	String lineTemp = scanner.nextLine();  
+		                String[] valuesTemp = lineTemp.split(" ");
+		                lineLength = valuesTemp.length;
+		                totalLine = totalLine + 1;
+				    	
+				    	while (scanner.hasNextLine()) {
+			                String line = scanner.nextLine();  
+			                String[] values = line.split(" ");
+			                lineLength = values.length;
+				            totalLine = totalLine + 1;
+				            }
+				    	scanner.close();
+				    	
+				    	Scanner scanner2 = new Scanner(file);
+				    	double[][] newM = new double[totalLine][lineLength];
+				    	
+				    	int ctr = 0;
+				    	while (scanner2.hasNextLine()) {
+			                String line = scanner2.nextLine();  
+			                String[] values = line.split(" ");
+			                for (int i = 0; i < values.length; i++) {
+				                    newM[ctr][i] = Double.parseDouble(values[i]);
+				                }
+			                ctr = ctr+1;
+				            }
+				    	scanner2.close();
+				    	
+				    	currentMatrixA = new double[totalLine][lineLength-1];
+				    	for (int i = 0; i < totalLine; i++) {
+				    		for (int j = 0; j < lineLength-1; j++) {
+					    		currentMatrixA[i][j] = newM[i][j];
+					    	}
+				    	}
+				    	currentMatrixB = new double[totalLine][1];
+				    	for (int i = 0; i < totalLine; i++) {
+				    		currentMatrixB[i][0] = newM[i][lineLength-1];
+				    	}
+				    	System.out.println("File berhasil disimpan");
+			    	} else {
+			    		System.out.println("File tidak berhasil disimpan");
+			    	}
+			    	
+			   
 			    } else if (menu.equals("7")) {
+			    	currentMatrixA = OBE.viewMatrix(currentMatrixA);
+			    } else if (menu.equals("8")) {
+			    	currentMatrixB = OBE.viewMatrix(currentMatrixB);
+			    } else if (menu.equals("9")) {
 			    	break;
 			    } else {
 			    	System.out.println("Input tidak valid!");
