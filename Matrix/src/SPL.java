@@ -72,20 +72,27 @@ public class SPL {
     public static void printParametric(double[][] m) {
     	double[][] newM = elimGaussJordan(m);
 		int i,j;
+		int colIdx;
 		for (i = 0; i < OBE.getRowEff(newM); i++) {
-			String stringTemp = "X" + (i+1);
+			colIdx = Eselon.countZero(newM, i);
+			
+			String stringTemp = "X" + (colIdx+1);
 			stringTemp = stringTemp + " = " + String.valueOf(newM[i][OBE.getColEff(newM)-1]);
-			boolean satuUtama = false;
-			for (j = 0; j < OBE.getColEff(newM)-1; j++) {
-				if (satuUtama) {
-					if (newM[i][j] < 0) {
+			for (j = colIdx+1; j < OBE.getColEff(newM)-1; j++) {
+				if (newM[i][j] < 0) {
+					if (newM[i][j] == -1) {
+						stringTemp = stringTemp + " + " + "X" + (j+1);
+					} else {
 						stringTemp = stringTemp + " + " + (-newM[i][j]) + "X" + (j+1);
-					} else if (newM[i][j] > 0) {
+					}
+					
+				} else if (newM[i][j] > 0) {
+					if (newM[i][j] == 1) {
+						stringTemp = stringTemp + " - " + "X" + (j+1);
+					} else {
 						stringTemp = stringTemp + " - " + (newM[i][j]) + "X" + (j+1);
 					}
-				} 
-				if (newM[i][j] == 1) {
-					satuUtama = true;
+					
 				}
 			}
 			System.out.println(stringTemp);
