@@ -64,6 +64,10 @@ public class SPL {
     public static boolean isInfiniteSolution(double[][] m) {
 		return (OBE.getRowEff(m) < OBE.getColEff(m) - 1);
     }
+    
+    public static boolean isNoSolution(double[][] m) {
+    	return (OBE.getRowEff(m) >= OBE.getColEff(m));
+    }
 
     public static void printParametric(double[][] m) {
     	double[][] newM = elimGaussJordan(m);
@@ -213,7 +217,9 @@ public class SPL {
 			    	readSPL();
 			    }
 			    if (menu.equals("1")) {
-			    	if (isInfiniteSolution(m)) {
+			    	if (isNoSolution(m)) {
+			    		System.out.println("Tidak ada solusi");
+			    	} else if (isInfiniteSolution(m)) {
 			    		printParametric(m);
 			    	} else if (!isSolution(m)) {
 			    		System.out.println("Tidak ada solusi");
@@ -228,7 +234,9 @@ public class SPL {
 			    	}
 			    	myObj.nextLine(); 
 			    } else if (menu.equals("2")) {
-			    	if (isInfiniteSolution(m)) {
+			    	if (isNoSolution(m)) {
+			    		System.out.println("Tidak ada solusi");
+			    	} else if (isInfiniteSolution(m)) {
 			    		printParametric(m);
 			    	} else if (!isSolution(m)) {
 			    		System.out.println("Tidak ada solusi");
