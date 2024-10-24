@@ -1,5 +1,7 @@
+import java.util.Scanner;
 
 public class Determinan {
+	static double[][] currentMatrix = new double[3][3];
 	public static double minorMatriks(double[][] m){
 		// I.S : matriks terdefinisi 2x2
 		// F.S : nilai determinan
@@ -33,16 +35,73 @@ public class Determinan {
 			return ctr;
 		}
 	}
+	public static void displayMenuDet() {
+    	System.out.println("MENU");
+		System.out.println("1. Metode Reduksi Baris");
+		System.out.println("2. Metode Kofaktor");
+		System.out.println("3. Lihat spesifikasi matriks");
+		System.out.println("4. Keluar");
+    }
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		double[][] theo2 = {
-				{ 3.00d, 148.30d, 223.70d, 87.77d },
-				{ 148.30d, 8148.81d, 11093.13d, 4336.52d },
-				{ 223.70d, 11093.13d, 16708.19d, 6544.14d },
-				{ 87.77d, 4336.52d, 6544.14d, 2567.87d }
-			};
-		double n = DeterminanKofaktor(theo2);
-		System.out.println(n);
+	public static boolean checkZeros(double[][] m) {
+	    int rowCount = OBE.getRowEff(m);  
+	    int colCount = OBE.getColEff(m);  
+	    for (int i = 0; i < rowCount; i++) {
+	        boolean allZero = true; 
+	        for (int j = 0; j < colCount; j++) {
+	            if (m[i][j] != 0) {  
+	                allZero = false;  
+	                break;  
+	            }
+	        }
+	        if (allZero) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
+
+	public static void main(String[] args) {
+		while (true) {
+			displayMenuDet();
+			Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+		    
+		    double[][] m = SPL.copyMatrix(currentMatrix);
+		    System.out.println("Pilih satu menu (nomor):");
+		    String menu = myObj.nextLine(); 
+		    if (menu.equals("1")) {
+		    	if (OBE.isMatrixSquare(m)) {
+		    		System.out.print("Hasil Determinan: ");
+		    		if (!checkZeros(m)) {
+		    			System.out.println(DeterminanReduksiBaris(m));
+		    		} else {
+		    			System.out.println(0);
+		    		}
+		    	} else {
+		    		System.out.println("Matriks tidak valid, jumlah baris dan kolom harus sama");
+		    	}
+		    	myObj.nextLine(); 
+		    } else if (menu.equals("2")) {
+		    	if (OBE.isMatrixSquare(m)) {
+		    		System.out.print("Hasil Determinan: ");
+		    		if (!checkZeros(m)) {
+		    			System.out.println(DeterminanKofaktor(m));
+		    		} else {
+		    			System.out.println(0);
+		    		}
+		    	} else {
+		    		System.out.println("Matriks tidak valid, jumlah baris dan kolom harus sama");
+		    	}
+		    	myObj.nextLine(); 
+		    } else if (menu.equals("3")) {
+		    	currentMatrix = OBE.viewMatrix(currentMatrix);
+		    } else if (menu.equals("4")) {
+		    	break;
+		    } else {
+		    	System.out.println("Input tidak valid!");
+		    	System.out.println("Pencet enter untuk menlanjutkan program");
+			    myObj.nextLine();
+		    }    
+		}
+    }
 }

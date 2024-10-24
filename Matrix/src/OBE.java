@@ -189,7 +189,7 @@ public class OBE {
 				System.out.println("Input diluar batas");
 			}
 		}
-		System.out.print("Input elemen baru:");
+		System.out.println("Input elemen baru:");
 		double newElmt = inputDouble();
 		m[row][col] = newElmt;
 		return m;	
@@ -232,6 +232,9 @@ public class OBE {
         return newMatrix;
     }
 	
+	public static boolean isMatrixSquare(double[][] m) {
+		return (getRowEff(m) == getColEff(m));
+	}
 	
 	public static double[][] viewMatrix(double[][] m) {
 		while (true) {

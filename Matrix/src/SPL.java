@@ -254,10 +254,7 @@ public class SPL {
 			    	System.out.println("Input tidak valid!");
 			    	System.out.println("Pencet enter untuk menlanjutkan program");
 				    myObj.nextLine();
-			    }
-			    
+			    }    
 			}
-    	
-
-    }
-}
+	    }
+	}
