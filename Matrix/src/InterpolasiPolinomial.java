@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class InterpolasiPolinomial {
@@ -92,7 +94,7 @@ public class InterpolasiPolinomial {
         return result;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // Input N (number of point inputs)
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number of points: ");
@@ -100,14 +102,64 @@ public class InterpolasiPolinomial {
         
         // Input points
         double[][] points = new double[N][2];
-        System.out.println("Enter points (x,y): ");
-        for (int i = 0; i < N; i++) {
-            System.out.println("X-" + i + ": ");
-            points[i][0] = scanner.nextDouble();
+        int choose = -1;
+        System.out.println("1. Input dari file");
+        System.out.println("2. Input Manual");
+        while (choose != 1 || choose != 2 ) {
+        	System.out.print("Pilihan: ");
+        	choose = scanner.nextInt();
+        	if (choose == 1) {
+        		Scanner scanner1 = new Scanner(System.in);
+        		String filename;
+		    	System.out.println("Tulis nama file disini");
+		    	filename = scanner1.nextLine();
+		    	if (InputFile.checkFile(filename)) {
+		    		File file = InputFile.getFile(filename);
+			    	Scanner scanners = new Scanner(file);
+			    	
+			    	int totalLine = 0;
+			    	int lineLength = 0;
+			    	String lineTemp = scanners.nextLine();  
+	                String[] valuesTemp = lineTemp.split(" ");
+	                lineLength = valuesTemp.length;
+	                totalLine = totalLine + 1;
+			    	
+			    	while (scanners.hasNextLine()) {
+		                String line = scanners.nextLine();  
+		                String[] values = line.split(" ");
+		                lineLength = values.length;
+			            totalLine = totalLine + 1;
+			            }
+			    	scanners.close();
+			    	
+			    	Scanner scanner2 = new Scanner(file);
+			    	double[][] newM = new double[totalLine][lineLength];
+			    	
+			    	int ctr = 0;
+			    	while (scanner2.hasNextLine()) {
+		                String line = scanner2.nextLine();  
+		                String[] values = line.split(" ");
+		                for (int i = 0; i < values.length; i++) {
+			                    newM[ctr][i] = Double.parseDouble(values[i]);
+			                }
+		                ctr = ctr+1;
+			            }
+			    	points = newM;
+			    	scanner2.close();
+		    		}
+            	break;
+            } else{
+            	System.out.println("Enter points (x,y): ");
+                for (int i = 0; i < N; i++) {
+                    System.out.println("X-" + i + ": ");
+                    points[i][0] = scanner.nextDouble();
 
-            System.out.println("Y-" + i + ": ");
-            points[i][1] = scanner.nextDouble();
+                    System.out.println("Y-" + i + ": ");
+                    points[i][1] = scanner.nextDouble();
+                }
+            }
         }
+        
 
         InterpolasiPolinomial interpolation = new InterpolasiPolinomial(points);
 
