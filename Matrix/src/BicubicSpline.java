@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class BicubicSpline {
 
 	public static int function(int i, int j, int x, int y) {
@@ -123,19 +127,82 @@ public class BicubicSpline {
 		double[] a = getListOfA(mOut);
 		return finalFunction((double) x, (double) y, a);
 	}
-
-	public static void main(String[] args) {
-		double[][] testMatrix = {
-				{ 21, 98, 125, 152},
-				{ 51, 101, 161, 59 },
-				{ 0, 42, 72, 210 },
-				{ 16, 12, 81, 96 }
-		};
-		OBE.printMatrix(testMatrix);
-		System.out.print("X: ");
-		double x = OBE.inputDouble();
-		System.out.print("Y: ");
-		double y = OBE.inputDouble();
-		System.out.println(bicubic(testMatrix,x,y));
-	}
+	
+	public static void displayMenuBic() {
+    	System.out.println("MENU BICUBIC");
+		System.out.println("1. Hasil dari bicubic");
+		System.out.println("2. Baca Input Matrix dari File");
+		System.out.println("3. Lihat Spesifikasi Matrix");
+		System.out.println("4. Keluar");
+    }
+	static double x = 0;
+	static double y = 0;
+	static double[][] currentMatrix = new double[4][4];
+	public static void main(String[] args) throws FileNotFoundException {
+		while (true) {
+			displayMenuBic();
+			Scanner myObj = new Scanner(System.in);
+		    double[][] m = SPL.copyMatrix(currentMatrix);
+		    System.out.println("Pilih satu menu (nomor):");
+		    String menu = myObj.nextLine(); 
+		   
+		    if (menu.equals("1")) {
+		    	System.out.print("Result of bicubic: ");
+		    	System.out.println(bicubic(m,x,y));
+		    	myObj.nextLine(); 
+		    } else if (menu.equals("2")) {
+		    	String filename;
+		    	System.out.println("Tulis nama file disini");
+		    	filename = myObj.nextLine();
+		    	if (InputFile.checkFile(filename)) {
+		    		File file = InputFile.getFile(filename);
+			    	Scanner scanner = new Scanner(file);
+			    	
+			    	int totalLine = 0;
+			    	int lineLength = 0;
+			    	String lineTemp = scanner.nextLine();  
+	                String[] valuesTemp = lineTemp.split(" ");
+	                lineLength = valuesTemp.length;
+	                totalLine = totalLine + 1;
+			    	
+			    	while (scanner.hasNextLine()) {
+		                scanner.nextLine();  
+			            totalLine = totalLine + 1;
+			            }
+			    	scanner.close();
+			    	
+			    	Scanner scanner2 = new Scanner(file);
+			    	double[][] newM = new double[totalLine][lineLength];
+			    	
+			    	int ctr = 0;
+			    	while (scanner2.hasNextLine()) {
+		                String line = scanner2.nextLine();  
+		                String[] values = line.split(" ");
+		                for (int i = 0; i < values.length; i++) {
+			                    newM[ctr][i] = Double.parseDouble(values[i]);
+			                }
+		                ctr = ctr+1;
+			            }
+			    	scanner2.close();
+			    	currentMatrix = new double[4][4];
+			    	for (int i = 0; i < 4; i++) {
+			    		for (int j = 0; j < 4; j++) {
+			    			currentMatrix[i][j] = newM[i][j];
+			    		}
+			    	}
+			    	x = newM[4][0];
+			    	y = newM[4][1];
+		    	}
+		    } else if (menu.equals("3")) {
+		    	currentMatrix = OBE.viewMatrix(currentMatrix);
+		    } else if (menu.equals("4")) {
+		    	break;
+		    } else {
+		    	System.out.println("Input tidak valid!");
+		    	System.out.println("Pencet enter untuk menlanjutkan program");
+			    myObj.nextLine();
+		    } 
+		}
+    }
+	
 }
