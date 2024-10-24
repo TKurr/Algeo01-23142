@@ -123,14 +123,16 @@ public class RegresiBerganda {
         
         
         System.out.printf("f(x) = %.4f", coefficients[0]);
+        double temp = 0;
         for (int i = 1; i < coefficients.length; i++) {
         	if (coefficients[i] >= 0) {
         		System.out.print(" + ");
+        		temp = coefficients[i];
         	} else {
-        		coefficients[i] = -coefficients[i];
+        		temp = -coefficients[i];
         		System.out.print(" - ");
         	}
-        	System.out.printf("%.4fX", coefficients[i]);
+        	System.out.printf("%.4fX", temp);
         	if (linear) {
         		System.out.printf("%d", i);
         	}else {
@@ -145,9 +147,8 @@ public class RegresiBerganda {
         
         // Input nilai-nilai xk yang akan ditaksir nilai fungsinya
         double[] xk = new double[n+1];
-        xk[0] = 1;
         System.out.println("Masukkan nilai-nilai xk:");
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i <= n; i++) {
             xk[i] = sc.nextDouble();
         }
         
@@ -161,21 +162,7 @@ public class RegresiBerganda {
     }
     
     public static void main(String[] args) {
-    	double[][] matrix = {
-                {1, -1, 0, 0, 1, 3},
-                {1, 1, 0, -3, 0, 6},
-                {2, -1, 0, 1, -2, 5},
-                {-1, 2, 0, -2, -1, -1}
-            };
-    	matrix = Eselon.ReduksiBaris(matrix);
-    	OBE.printMatrix(matrix);
-    	System.out.println();
-    	matrix = Eselon.MatriksEselon(matrix);
-    	OBE.printMatrix(matrix);
-    	System.out.println();
-    	matrix = Eselon.MatriksEselonTereduksi(matrix);
-    	OBE.printMatrix(matrix);
-
-    	
-    }}
+    	MultipleRegression();
+    }
+}
     
