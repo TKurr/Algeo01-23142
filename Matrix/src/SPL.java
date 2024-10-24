@@ -88,20 +88,6 @@ public class SPL {
 		}
     }
     
-    public static void printParametric2(double[][] m) {
-    	// sudah di elim gauss jordan
-		int i, j;
-		for (i = 0; i < OBE.getRowEff(m); i++){
-			System.out.print("X" +  (i+1) + " = " + m[i][OBE.getColEff(m)-1]); //ubah i+1 nya ntar
-			for (j = OBE.getColEff(m) - OBE.getRowEff(m); j < OBE.getColEff(m) - 1; j++){
-				if (m[i][j] > 0){
-					System.out.print("+");
-				} 
-				System.out.println(m[i][j]);
-			}
-		}
-
-    }
     
     public static double[] gaussJordanSPL(double[][] m) {
     	// matriks sudah berbentuk matriks eselon tereduksi
