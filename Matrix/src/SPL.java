@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class SPL {
     public static double[][] elimGaussJordan(double[][] m){
@@ -206,7 +209,7 @@ public class SPL {
 			    double[][] m = augmentMatrix(A,B);
 			    System.out.println("Pilih satu menu (nomor):");
 			    String menu = myObj.nextLine(); 
-			    if (menu.equals("1")) {
+			    if (menu.equals("0")) {
 			    	readSPL();
 			    }
 			    if (menu.equals("1")) {
