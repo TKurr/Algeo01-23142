@@ -1,9 +1,6 @@
 import java.util.Scanner;
 
 public class SPL {
-	
-	static double[][] currentMatrixA = new double[3][3];
-	static double[][] currentMatrixB = new double[3][1];
     public static double[][] elimGaussJordan(double[][] m){
     	double [][] mOut = m;
 		mOut = Eselon.SortMatriks(mOut);
@@ -136,6 +133,7 @@ public class SPL {
     
     public static void displayMenuSPL() {
     	System.out.println("MENU");
+    	System.out.println("0. Baca Ulang Matriks");
 		System.out.println("1. Metode Eliminasi Gauss");
 		System.out.println("2. Metode Eliminasi Gauss Jordan");
 		System.out.println("3. Metode Matriks Balikan");
@@ -174,16 +172,43 @@ public class SPL {
     	return (OBE.getColEff(A) == OBE.getRowEff(A) && OBE.getColEff(B) == 1 && OBE.getColEff(A) == OBE.getRowEff(B));
     }
     
+    public static void readSPL() {
+    	System.out.print("Jumlah baris (m): ");
+    	m2 = OBE.inputInteger();
+    	System.out.print("Jumlah kolom (n): ");
+    	n = OBE.inputInteger();
+    	currentMatrixA = new double[m2][n];
+    	currentMatrixB = new double[m2][1];
+    	for (int i = 0;i<m2;i++) {
+    		for (int j = 0;j<n;j++) {
+    			System.out.print("A["+i+"]"+"["+j+"]: ");
+    			currentMatrixA[i][j] = OBE.inputDouble();
+        	}
+    	}
+    	for (int i = 0;i<m2;i++) {
+    		System.out.print("B["+i+"]");
+    		currentMatrixB[i][0] = OBE.inputDouble();
+    	}
+    }
+    
+    static int m2 = 0;
+    static int n = 0;
+    static double[][] currentMatrixA = new double[1][1];
+    static  double[][] currentMatrixB = new double[1][1];
+    
     public static void main(String[] args) {
+    		readSPL();
 			while (true) {
 				displayMenuSPL();
 				Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-			    
 			    double[][] A = copyMatrix(currentMatrixA);
 			    double[][] B = copyMatrix(currentMatrixB);
 			    double[][] m = augmentMatrix(A,B);
 			    System.out.println("Pilih satu menu (nomor):");
 			    String menu = myObj.nextLine(); 
+			    if (menu.equals("1")) {
+			    	readSPL();
+			    }
 			    if (menu.equals("1")) {
 			    	if (isInfiniteSolution(m)) {
 			    		printParametric(m);

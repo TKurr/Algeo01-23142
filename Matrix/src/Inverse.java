@@ -63,24 +63,39 @@ public class Inverse {
 	
 	public static void displayMenuInv() {
     	System.out.println("MENU");
+    	System.out.println("0. Baca Ulang Matriks");
 		System.out.println("1. Metode Adjoin");
-		System.out.println("2. Metode Reduksi Baris");
+		System.out.println("2. Metode OBE");
 		System.out.println("3. Lihat spesifikasi matriks");
 		System.out.println("4. Keluar");
     }
 	
-	static double[][] currentMatrix = {
-		    {3,1},
-		    {5,2},
-		  };
+	public static void readInv() {
+    	System.out.print("Jumlah baris dan kolom (n): ");
+    	n = OBE.inputInteger();
+    	currentMatrix = new double[n][n];
+    	for (int i = 0;i<n;i++) {
+    		for (int j = 0;j<n;j++) {
+    			System.out.print("A["+i+"]"+"["+j+"]: ");
+    			currentMatrix[i][j] = OBE.inputDouble();
+        	}
+    	}
+    }
+	
+	static int n = 0;
+    static double[][] currentMatrix = new double[1][1];
+    
 	public static void main(String[] args) {
+		readInv();
 		while (true) {
 			displayMenuInv();
 			Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 		    double[][] m = SPL.copyMatrix(currentMatrix);
-		    OBE.printMatrix(m);
 		    System.out.println("Pilih satu menu (nomor):");
 		    String menu = myObj.nextLine(); 
+		    if (menu.equals("0")) {
+		    	readInv();
+		    }
 		    if (menu.equals("1")) {
 		    	if (OBE.isMatrixSquare(m)) {
 		    		if (Determinan.checkZeros(m)) {

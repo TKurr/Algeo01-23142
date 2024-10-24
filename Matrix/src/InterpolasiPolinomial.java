@@ -40,32 +40,30 @@ public class InterpolasiPolinomial {
 
 
 	public static void main(String[] args) {
-		try (Scanner scanner = new Scanner(System.in)) {
+		// Input N (number of point inputs)
+		System.out.println("Enter the number of points: "); // N+1
+		int N = OBE.inputInteger();
+		
+		// Input points
+		double[][] points = new double[N][2];
+		System.out.println("Enter points (x,y): ");
+		for (int i = 0; i < N; i++) {
+			System.out.println("X-" + (i) + ": ");
+			points[i][0] = OBE.inputDouble();
 
-			// Input N (number of point inputs)
-			System.out.print("Enter the number of points: "); // N+1
-			int N = scanner.nextInt();
-			
-			// Input points
-			double[][] points = new double[N][2];
-			System.out.println("Enter points (x,y): ");
-			for (int i = 0; i < N; i++) {
-				System.out.print("X-" + (i) + ": ");
-				points[i][0] = scanner.nextDouble();
-
-				System.out.print("Y-" + (i) + ": ");
-				points[i][1] = scanner.nextDouble();
-			}
-			
-			InterpolasiPolinomial interpolation = new InterpolasiPolinomial(points);
-			
-			// Input X
-			System.out.print("Enter x: ");
-			double valX = scanner.nextDouble();
-			
-			// Output
-			double valY = interpolation.interpolate(valX);
-			System.out.println("Estimated/Interpolated Y value: " + valY);
+			System.out.println("Y-" + (i) + ": ");
+			points[i][1] = OBE.inputDouble();
 		}
+		
+		InterpolasiPolinomial interpolation = new InterpolasiPolinomial(points);
+		
+		// Input X
+		System.out.print("Enter x: ");
+		double valX = OBE.inputDouble();
+		
+		// Output
+		double valY = interpolation.interpolate(valX);
+		System.out.println("Estimated/Interpolated Y value: " + valY);
+		
 	}
 }
