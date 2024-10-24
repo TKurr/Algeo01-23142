@@ -1,7 +1,9 @@
+import java.util.Scanner;
 
 public class SPL {
 	
-	
+	static double[][] currentMatrixA = new double[3][3];
+	static double[][] currentMatrixB = new double[3][1];
     public static double[][] elimGaussJordan(double[][] m){
     	double [][] mOut = m;
 		mOut = Eselon.SortMatriks(mOut);
@@ -52,7 +54,7 @@ public class SPL {
                     break;
                 }
             }
-            if (allZero && m[i][colCount - 1] != 0) {
+            if (allZero) {
                 return false; 
             }
         }
@@ -64,21 +66,21 @@ public class SPL {
     }
 
     public static void printParametric(double[][] m) {
-    	// m adalah hasil dari elim gauss jordan
+    	double[][] newM = elimGaussJordan(m);
 		int i,j;
-		for (i = 0; i < OBE.getRowEff(m); i++) {
+		for (i = 0; i < OBE.getRowEff(newM); i++) {
 			String stringTemp = "X" + (i+1);
-			stringTemp = stringTemp + " = " + String.valueOf(m[i][OBE.getColEff(m)-1]);
+			stringTemp = stringTemp + " = " + String.valueOf(newM[i][OBE.getColEff(newM)-1]);
 			boolean satuUtama = false;
-			for (j = 0; j < OBE.getColEff(m)-1; j++) {
+			for (j = 0; j < OBE.getColEff(newM)-1; j++) {
 				if (satuUtama) {
-					if (m[i][j] < 0) {
-						stringTemp = stringTemp + " + " + (-m[i][j]) + "X" + (j+1);
-					} else if (m[i][j] > 0) {
-						stringTemp = stringTemp + " - " + (m[i][j]) + "X" + (j+1);
+					if (newM[i][j] < 0) {
+						stringTemp = stringTemp + " + " + (-newM[i][j]) + "X" + (j+1);
+					} else if (newM[i][j] > 0) {
+						stringTemp = stringTemp + " - " + (newM[i][j]) + "X" + (j+1);
 					}
 				} 
-				if (m[i][j] == 1) {
+				if (newM[i][j] == 1) {
 					satuUtama = true;
 				}
 			}
@@ -87,6 +89,7 @@ public class SPL {
     }
     
     public static void printParametric2(double[][] m) {
+    	// sudah di elim gauss jordan
 		int i, j;
 		for (i = 0; i < OBE.getRowEff(m); i++){
 			System.out.print("X" +  (i+1) + " = " + m[i][OBE.getColEff(m)-1]); //ubah i+1 nya ntar
@@ -145,32 +148,130 @@ public class SPL {
     	return result;
     }
     
+    public static void displayMenuSPL() {
+    	System.out.println("MENU");
+		System.out.println("1. Metode Eliminasi Gauss");
+		System.out.println("2. Metode Eliminasi Gauss Jordan");
+		System.out.println("3. Metode Matriks Balikan");
+		System.out.println("4. Kaidah Cramer");
+		System.out.println("5. Lihat spesifikasi matriks A");
+		System.out.println("6. Lihat spesifikasi matriks B");
+		System.out.println("7. Keluar");
+    }
+    
+    public static void printSolution(double[] listSolution) {
+    	for (int i = 0; i < listSolution.length; i++) {
+    		System.out.print("X");
+    		System.out.print(i+1);
+    		System.out.print(": ");
+    		System.out.println(listSolution[i]);
+    	}
+    }
+    
+    public static double[][] augmentMatrix(double[][] A, double[][] B){
+    	double[][] m = new double[OBE.getRowEff(B)][OBE.getColEff(A)+1];
+    	for (int i = 0; i < OBE.getRowEff(A);i++) {
+    		for (int j = 0; j < OBE.getColEff(A);j++) {
+        		m[i][j] = A[i][j];
+        	}
+    	}
+    	for (int i = 0; i < OBE.getRowEff(B);i++) {
+    		for (int j = 0; j < OBE.getColEff(B);j++) {
+        		m[i][OBE.getColEff(m)-1] = B[i][j];
+        	}
+    	}
+    	return m;
+    	
+    }
+    
+    public static boolean isMatrixABvalid(double[][] A, double[][] B) {
+    	return (OBE.getColEff(A) == OBE.getRowEff(A) && OBE.getColEff(B) == 1 && OBE.getColEff(A) == OBE.getRowEff(B));
+    }
+    
     public static void main(String[] args) {
-		double[][] A = {
-			{1, 2, 3,1},
-			{2, 5, 3,0},
-			{1, 0, 8,2}
-		};
-		OBE.printList(gaussSPL(A));
-		OBE.printList(gaussJordanSPL(A));
-		
-		double[][] m = {
-		 		{1,2,3},
-		 		{2,5,3},
-		 		{1,0,8},
-		 };
-		double[][] b = {
-				{1},
-				{0},
-				{2}
-			};
-		OBE.printList(inverseSPL(m, b));
-        OBE.printList(Cramer(m, b));
+			while (true) {
+				displayMenuSPL();
+				Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+			    
+			    double[][] A = copyMatrix(currentMatrixA);
+			    double[][] B = copyMatrix(currentMatrixB);
+			    double[][] m = augmentMatrix(A,B);
+			    System.out.println("Pilih satu menu (nomor):");
+			    String menu = myObj.nextLine(); 
+			    if (menu.equals("1")) {
+			    	if (isInfiniteSolution(m)) {
+			    		printParametric(m);
+			    	} else if (!isSolution(m)) {
+			    		System.out.println("Tidak ada solusi");
+			    	} else {
+			    		double[][] newM = elimGauss(m);
+			    		if (isSolution(newM)) {
+			    			double[] M = gaussSPL(m);
+			    			printSolution(M);
+			    		} else {
+			    			System.out.println("Tidak ada solusi");
+			    		}
+			    	}
+			    	myObj.nextLine(); 
+			    } else if (menu.equals("2")) {
+			    	if (isInfiniteSolution(m)) {
+			    		printParametric(m);
+			    	} else if (!isSolution(m)) {
+			    		System.out.println("Tidak ada solusi");
+			    	} else {
+			    		double[][] newM = elimGaussJordan(m);
+			    		if (isSolution(newM)) {
+			    			double[] M = gaussJordanSPL(m);
+			    			printSolution(M);
+			    		} else {
+			    			System.out.println("Tidak ada solusi");
+			    		}
+			    	}
+			    	myObj.nextLine(); 
+			    } else if (menu.equals("3")) {
+			    	if (isMatrixABvalid(A,B)) {
+			    		if (!isSolution(m)) {
+				    		System.out.println("Tidak ada solusi");
+				    	} else {
+				    		double[][] newM = elimGaussJordan(m);
+				    		if (isSolution(newM)) {
+				    			double[] sol = inverseSPL(A,B);
+				    			printSolution(sol);
+				    		} else {
+				    			System.out.println("Tidak ada solusi");
+				    		}
+				    	}
+			    	}
+			    	myObj.nextLine(); 
+			    } else if (menu.equals("4")) {
+			    	if (isMatrixABvalid(A,B)) {
+			    		if (!isSolution(m)) {
+				    		System.out.println("Tidak ada solusi");
+				    	} else {
+				    		double[][] newM = elimGaussJordan(m);
+				    		if (isSolution(newM)) {
+				    			double[] sol = Cramer(A,B);
+				    			printSolution(sol);
+				    		} else {
+				    			System.out.println("Tidak ada solusi");
+				    		}
+				    	}
+			    	}
+			    	myObj.nextLine(); 
+			    } else if (menu.equals("5")) {
+			    	currentMatrixA = OBE.viewMatrix(currentMatrixA);
+			    } else if (menu.equals("6")) {
+			    	currentMatrixB = OBE.viewMatrix(currentMatrixB);
+			    } else if (menu.equals("7")) {
+			    	break;
+			    } else {
+			    	System.out.println("Input tidak valid!");
+			    	System.out.println("Pencet enter untuk menlanjutkan program");
+				    myObj.nextLine();
+			    }
+			    
+			}
+    	
 
-        // m = elimGaussJordan(m);
-        // System.out.println(isSolution(m));
-        // OBE.printMatrix(m);
-        // printParametric(m);
-        // OBE.printList(listSolution(m));
     }
 }
