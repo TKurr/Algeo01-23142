@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Inverse {
 	public static double[][] Transpose(double[][] m){
@@ -46,7 +47,7 @@ public class Inverse {
 				if (j < col/2) {
 					process[i][j] = m[i][j];
 				} else {
-					process[i][j] = identity[i][j-3];
+					process[i][j] = identity[i][j-row];
 				}
 			}
 		}
@@ -54,35 +55,71 @@ public class Inverse {
 		double[][] mOut = new double[row][col/2];
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col/2; j++) {
-				mOut[i][j] = process[i][j+3];
+				mOut[i][j] = process[i][j+row];
 			}
 		}
 		return mOut;
 	}
 	
+	public static void displayMenuInv() {
+    	System.out.println("MENU");
+		System.out.println("1. Metode Adjoin");
+		System.out.println("2. Metode Reduksi Baris");
+		System.out.println("3. Lihat spesifikasi matriks");
+		System.out.println("4. Keluar");
+    }
+	
+	static double[][] currentMatrix = {
+		    {3,1},
+		    {5,2},
+		  };
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		double[][] theo = {
-				{1,2,3},
-				{2,5,3},
-				{1,0,8},
-		};
-		
-		OBE.printMatrix(theo);
-		// System.out.println("");
-		// theo = Transpose(theo);
-		// OBE.printMatrix(theo);
-		// System.out.println("");
-		theo = InverseAdjoin(theo);
-		OBE.printMatrix(theo);
-		System.out.println("");
-		double[][] m = {
-				{1,2,3},
-				{2,5,3},
-				{1,0,8},
-		};
-		m = InverseIdentity(m);
-		OBE.printMatrix(m);
-	}
-
+		while (true) {
+			displayMenuInv();
+			Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+		    double[][] m = SPL.copyMatrix(currentMatrix);
+		    OBE.printMatrix(m);
+		    System.out.println("Pilih satu menu (nomor):");
+		    String menu = myObj.nextLine(); 
+		    if (menu.equals("1")) {
+		    	if (OBE.isMatrixSquare(m)) {
+		    		if (Determinan.checkZeros(m)) {
+		    			System.out.println("Matriks tidak valid, hasil determinan = 0");
+		    		}
+		    		else if (Determinan.DeterminanKofaktor(m) == 0) {
+		    			System.out.println("Matriks tidak valid, hasil determinan = 0");
+		    		} else {
+		    			System.out.println("Hasil Inverse: ");
+		    			
+			    		OBE.printMatrix((InverseAdjoin(m)));
+		    		}
+		    	} else {
+		    		System.out.println("Matriks tidak valid, jumlah baris dan kolom harus sama");
+		    	}
+		    	myObj.nextLine(); 
+		    } else if (menu.equals("2")) {
+		    	if (OBE.isMatrixSquare(m)) {
+		    		if (Determinan.checkZeros(m)) {
+		    			System.out.println("Matriks tidak valid, hasil determinan = 0");
+		    		}
+		    		else if (Determinan.DeterminanKofaktor(m) == 0) {
+		    			System.out.println("Matriks tidak valid, hasil determinan = 0");
+		    		} else {
+			    		OBE.printMatrix((InverseIdentity(m)));
+		    		}
+		    	} else {
+		    		System.out.println("Matriks tidak valid, jumlah baris dan kolom harus sama");
+		    	}
+		    	myObj.nextLine();
+		    } else if (menu.equals("3")) {
+		    	currentMatrix = OBE.viewMatrix(currentMatrix);
+		    } else if (menu.equals("4")) {
+		    	break;
+		    } else {
+		    	System.out.println("Input tidak valid!");
+		    	System.out.println("Pencet enter untuk menlanjutkan program");
+			    myObj.nextLine();
+		    }    
+		}
+    }
 }

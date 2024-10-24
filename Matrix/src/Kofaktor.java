@@ -6,6 +6,9 @@ public class Kofaktor {
 	
 	public static double kofaktor(double[][] m, int i, int j) {
 		double[][] mOut = m;
+		if (isMatriks2x2(mOut)) {
+			return (double) (Math.pow(-1, i+j)*Determinan.minorMatriks(mOut));
+		}
 		mOut = OBE.deleteCol(mOut, j+1);
 		mOut = OBE.deleteRow(mOut, i+1);
 		if (isMatriks2x2(mOut)) {
