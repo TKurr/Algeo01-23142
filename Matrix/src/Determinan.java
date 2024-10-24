@@ -93,6 +93,8 @@ public class Determinan {
 		    		m = Eselon.ReduksiBaris(m);
 		    		if (!checkZeros(m)) {
 		    			System.out.println(DeterminanReduksiBaris(m));
+		    			String kalimat = String.valueOf(DeterminanReduksiBaris(m));
+		    			WriteFile.write(kalimat);
 		    		} else {
 		    			System.out.println(0d);
 		    		}
@@ -105,6 +107,8 @@ public class Determinan {
 		    		System.out.print("Hasil Determinan: ");
 		    		if (!checkZeros(m)) {
 		    			System.out.println(DeterminanKofaktor(m));
+		    			String kalimat = String.valueOf(DeterminanKofaktor(m));
+		    			WriteFile.write(kalimat);
 		    		} else {
 		    			System.out.println(0d);
 		    		}
@@ -159,7 +163,7 @@ public class Determinan {
 		    	break;
 		    } else {
 		    	System.out.println("Input tidak valid!");
-		    	System.out.println("Pencet enter untuk menlanjutkan program");
+		    	System.out.println("Pencet enter untuk melanjutkan program");
 			    myObj.nextLine();
 		    }    
 		}

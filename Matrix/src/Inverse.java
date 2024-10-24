@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Arrays;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -69,8 +70,8 @@ public class Inverse {
 		System.out.println("2. Metode OBE");
     	System.out.println("3. Baca Matriks");
     	System.out.println("4. Baca Matriks dari File");
-		System.out.println("3. Lihat spesifikasi matriks");
-		System.out.println("4. Keluar");
+		System.out.println("5. Lihat spesifikasi matriks");
+		System.out.println("6. Keluar");
     }
 	
 	public static void readInv() {
@@ -110,6 +111,8 @@ public class Inverse {
 		    			System.out.println("Hasil Inverse: ");
 		    			
 			    		OBE.printMatrix((InverseAdjoin(m)));
+			    		String kalimat = Arrays.deepToString(InverseAdjoin(m));
+			    		WriteFile.write(kalimat);
 		    		}
 		    	} else {
 		    		System.out.println("Matriks tidak valid, jumlah baris dan kolom harus sama");

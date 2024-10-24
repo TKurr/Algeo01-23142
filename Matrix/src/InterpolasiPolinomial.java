@@ -169,6 +169,8 @@ public class InterpolasiPolinomial {
 
         double valY = interpolation.interpolate(valX);
         System.out.println("Estimated/Interpolated Y value: " + valY);
+        String kalimat = "Estimated/Interpolated Y value: " + String.valueOf(valY);
+        WriteFile.write(kalimat);
         scanner.close();
     }
 }

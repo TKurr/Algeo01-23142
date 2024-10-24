@@ -217,7 +217,10 @@ public class RegresiBerganda {
         for (int i = 0; i <= n; i++) {
             yk += coefficients[i] * xk[i];
         }
-        System.out.printf("f(xk) = %.4f\n", yk);   
+        System.out.printf("f(xk) = %.4f\n", yk);
+        String kalimat = "f(xk) = " + String.valueOf(yk);
+        choose = -1;
+        WriteFile.write(kalimat);
         sc.close();
     }
     

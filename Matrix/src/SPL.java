@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class SPL {
     public static double[][] elimGaussJordan(double[][] m){
@@ -215,7 +216,7 @@ public class SPL {
     		
 			while (true) {
 				displayMenuSPL();
-				Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+				Scanner myObj = new Scanner(System.in);  
 			    double[][] A = copyMatrix(currentMatrixA);
 			    double[][] B = copyMatrix(currentMatrixB);
 			    double[][] m = augmentMatrix(A,B);
@@ -234,6 +235,8 @@ public class SPL {
 			    		if (isSolution(newM)) {
 			    			double[] M = gaussSPL(m);
 			    			printSolution(M);
+			    			String kalimat = Arrays.toString(M);
+			    			WriteFile.write(kalimat);
 			    		} else {
 			    			System.out.println("Tidak ada solusi");
 			    		}
@@ -251,6 +254,8 @@ public class SPL {
 			    		if (isSolution(newM)) {
 			    			double[] M = gaussJordanSPL(m);
 			    			printSolution(M);
+			    			String kalimat = Arrays.toString(M);
+			    			WriteFile.write(kalimat);
 			    		} else {
 			    			System.out.println("Tidak ada solusi");
 			    		}
@@ -264,7 +269,9 @@ public class SPL {
 				    		double[][] newM = elimGaussJordan(m);
 				    		if (isSolution(newM)) {
 				    			double[] sol = inverseSPL(A,B);
+				    			String kalimat = Arrays.toString(sol);
 				    			printSolution(sol);
+				    			WriteFile.write(kalimat);
 				    		} else {
 				    			System.out.println("Tidak ada solusi");
 				    		}
@@ -279,7 +286,10 @@ public class SPL {
 				    		double[][] newM = elimGaussJordan(m);
 				    		if (isSolution(newM)) {
 				    			double[] sol = Cramer(A,B);
+				    			String kalimat = Arrays.toString(sol);
 				    			printSolution(sol);
+				    			WriteFile.write(kalimat);
+				
 				    		} else {
 				    			System.out.println("Tidak ada solusi");
 				    		}

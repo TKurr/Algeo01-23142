@@ -137,5 +137,7 @@ public class BicubicSpline {
 		System.out.print("Y: ");
 		double y = OBE.inputDouble();
 		System.out.println(bicubic(testMatrix,x,y));
+		String kalimat = String.valueOf(bicubic(testMatrix, x, y));
+		WriteFile.write(kalimat);
 	}
 }

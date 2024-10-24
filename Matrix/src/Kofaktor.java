@@ -41,5 +41,6 @@ public class Kofaktor {
 		System.out.println(C);
 		theo = MatriksKofaktor(theo);
 		OBE.printMatrix(theo);
+		
 	}
 }

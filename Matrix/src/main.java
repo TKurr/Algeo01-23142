@@ -13,6 +13,7 @@ public class main {
 		System.out.println("7. Interpolasi Gambar");
 		System.out.println("8. Keluar");
 	}
+	
 	public static void main(String[] args) throws IOException {
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
