@@ -6,7 +6,7 @@ public class Eselon {
 		int colIdx = countZero(mOut, idx);
 		double temp = 1;
 		for (int i = idx + 1; i < OBE.getRowEff(mOut); i++) {
-			temp = mOut[i][idx] / mOut[idx][colIdx];
+			temp = mOut[i][colIdx] / mOut[idx][colIdx];
 			for (int j = 0; j < OBE.getColEff(mOut); j++) {
 				mOut[i][j] -= (temp * mOut[idx][j]);
 			}
@@ -17,13 +17,7 @@ public class Eselon {
 	// column Elimination 2 (utk eselon tereduksi)
 	public static double[][] colElim2(double[][] m, int idx) {
 		double [][] mOut = m;
-		int colIdx = 0;
-		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
-			if (mOut[idx][i] == 1) {
-				colIdx = i;
-				break;
-			}
-		}
+		int colIdx = countZero(mOut,idx);
 		for (int i = 0; i < OBE.getRowEff(mOut); i++) {
 
 			if (i != idx) {
@@ -31,7 +25,6 @@ public class Eselon {
 				mOut = OBE.addRow(mOut, i + 1, idx + 1, c);
 			}
 		}
-
 		return mOut;
 	}
 

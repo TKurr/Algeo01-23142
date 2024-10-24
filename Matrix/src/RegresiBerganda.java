@@ -161,27 +161,21 @@ public class RegresiBerganda {
     }
     
     public static void main(String[] args) {
-        double[][] m = {
-            {1, -1, 0, 0, 1},
-            {1, 1, 0, -3, 0},
-            {2, -1, 0, 1, -1},
-            {-1, 2, 0, -2, -1}
-          };
+    	double[][] matrix = {
+                {1, -1, 0, 0, 1, 3},
+                {1, 1, 0, -3, 0, 6},
+                {2, -1, 0, 1, -2, 5},
+                {-1, 2, 0, -2, -1, -1}
+            };
+    	matrix = Eselon.ReduksiBaris(matrix);
+    	OBE.printMatrix(matrix);
+    	System.out.println();
+    	matrix = Eselon.MatriksEselon(matrix);
+    	OBE.printMatrix(matrix);
+    	System.out.println();
+    	matrix = Eselon.MatriksEselonTereduksi(matrix);
+    	OBE.printMatrix(matrix);
 
-          double[][] b = {
-            {1},
-            {-2},
-            {4},
-            {6}
-          };
-
-          };
-          System.out.println("Matriks Augmented :");
-          OBE.printMatrix(b);
-          System.out.println("");
-     //     System.out.println("Matriks B :");
-     //     OBE.printMatrix(n);
-     //     System.out.println();
-          SPL.printSolution(SPL.Cramer(b, n));
-    }
+    	
+    }}
     
