@@ -1,3 +1,79 @@
 # Tugas Besar 1 - Aljabar Linear dan Geometri
 
-> Implementasi Sistem Linear, Regresi, dan Interpolasi dengan Bahasa Pemrograman Java
+> **Linear Algebra Calculator**
+> Implementation of Linear Systems, Regression and Interpolation with the Java Programming Language
+
+## Description
+
+This project is a Java-based terminal application designed to solve various linear algebra problems. The program can handle systems of linear equations (SPL), calculate matrix determinants and inverses, perform polynomial interpolation, bicubic spline interpolation, and conduct multiple regression analyses.
+
+## Features
+
+-   **Solving Systems of Linear Equations (SPL)**:
+
+    -   Use **Gaussian Elimination** and **Gauss-Jordan Elimination** to find solutions.
+    -   Solve using **Matrix Inversion** (if the matrix is invertible).
+    -   Apply **Cramer’s Rule** for small systems where the matrix determinant can be calculated efficiently.
+
+-   **Matrix Operations**:
+
+    -   Compute the **determinant** of any square matrix.
+    -   Find the **inverse** of an invertible matrix.
+    -   Perform **matrix multiplication** and **scalar multiplication**.
+
+-   **Polynomial Interpolation**:
+    -   Perform **Lagrange Polynomial Interpolation** or **Newton's Interpolation** to estimate values between data points.
+-   **Bicubic Spline Interpolation**:
+
+    -   Implement **Bicubic Spline Interpolation** to estimate values for two-dimensional data grids, often used in image processing tasks like resizing.
+
+-   **Regression Analysis**:
+
+    -   Conduct **Multiple Linear Regression** to model relationships between multiple variables.
+    -   Perform **Quadratic Regression** for fitting data to a quadratic model.
+
+-   **Input and Output**:
+    -   Accepts input from the terminal (manual input) or from text files (matrix data).
+    -   Outputs results directly to the terminal or to a downloadable `.txt` file.
+
+## Technologies Used
+
+-   **Java**
+
+## Authors
+
+1. **Nathanael Rachmat** (13523142)
+2. **Andrew Tedjapratama** (13523148)
+3. **Theo Kurniady** (13523154)
+
+Group Name: **Lastesest**
+
+## Installing / Getting Started
+
+### Requirements
+
+-   Java Development Kit (JDK) version 8 or higher
+-   A Java-capable IDE (e.g., Eclipse, IntelliJ IDEA), or you can use a text editor with terminal support.
+
+### Running the Program
+
+1. **Clone the Repository**:
+   Open a terminal and run the following command to clone the repository:
+
+    ```bash
+    git clone https://https://github.com/Stahlynx/Algeo01-23142
+    ```
+
+2.
+
+## Usage
+
+Once the program is running, you can use it to perform various linear algebra operations. Below are some of the main features:
+
+-   Solving Linear Equations: You can input matrices manually or from files to solve systems of equations using Gaussian elimination, matrix inversion, or Cramer’s rule.
+
+-   Matrix Operations: Perform operations such as matrix multiplication, finding determinants, and calculating inverses.
+
+-   Interpolation: Use polynomial interpolation or bicubic spline interpolation to estimate unknown values from known data points.
+
+-   Regression Analysis: Input data for regression analysis to determine relationships between variables or predict future outcomes.
