@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class RegresiBerganda {
@@ -24,7 +26,6 @@ public class RegresiBerganda {
         
         // Koefisien regresi: (X^T * X)^-1 * (X^T * Y)
         double[] coefficients = new double[n];
-        double sum = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
             	coefficients[i] += XTXInv[i][j] * XTY[j];
@@ -72,7 +73,6 @@ public class RegresiBerganda {
         
         // Koefisien regresi: (X^T * X)^-1 * (X^T * Y)
         double[] coefficients = new double[n];
-        double sum = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
             	coefficients[i] += XTXInv[i][j] * XTY[j];
@@ -81,7 +81,7 @@ public class RegresiBerganda {
         return coefficients;
     }
 	
-    public static void MultipleRegression() {
+    public static void MultipleRegression() throws FileNotFoundException {
     	Scanner sc = new Scanner(System.in);
       
         // Input jumlah variabel (n) dan jumlah sampel (m)
@@ -92,21 +92,81 @@ public class RegresiBerganda {
         double[][] X = new double[m][n+1];
         double[] Y = new double[m];
         
-        // Input nilai-nilai x1i, x2i, ..., xni, dan yi
-        System.out.println("Masukkan nilai-nilai xi dan yi:");
-        for (int i = 0; i < m; i++) {
-        	Y[i] = sc.nextDouble();
-        	Y[i] = Math.round(Y[i] * 100.0) / 100.0;
-            X[i][0] = 1;
-            for (int j = 1; j <= n; j++) {
-                X[i][j] = sc.nextDouble();
-                X[i][j] = Math.round(X[i][j] * 100.0) / 100.0;
+        int choose = -1;
+        System.out.println("1. Input dari file");
+        System.out.println("2. Input Manual");
+        while (choose != 1 || choose != 2 ) {
+        	System.out.print("Pilihan: ");
+        	choose = sc.nextInt();
+        	if (choose == 1) {
+        		Scanner scanner1 = new Scanner(System.in);
+        		String filename;
+		    	System.out.println("Tulis nama file disini");
+		    	filename = scanner1.nextLine();
+		    	if (InputFile.checkFile(filename)) {
+		    		File file = InputFile.getFile(filename);
+			    	Scanner scanner = new Scanner(file);
+			    	
+			    	int totalLine = 0;
+			    	int lineLength = 0;
+			    	String lineTemp = scanner.nextLine();  
+	                String[] valuesTemp = lineTemp.split(" ");
+	                lineLength = valuesTemp.length;
+	                totalLine = totalLine + 1;
+			    	
+			    	while (scanner.hasNextLine()) {
+		                String line = scanner.nextLine();  
+		                String[] values = line.split(" ");
+		                lineLength = values.length;
+			            totalLine = totalLine + 1;
+			            }
+			    	scanner.close();
+			    	
+			    	Scanner scanner2 = new Scanner(file);
+			    	double[][] newM = new double[totalLine][lineLength];
+			    	
+			    	int ctr = 0;
+			    	while (scanner2.hasNextLine()) {
+		                String line = scanner2.nextLine();  
+		                String[] values = line.split(" ");
+		                for (int i = 0; i < values.length; i++) {
+			                    newM[ctr][i] = Double.parseDouble(values[i]);
+			                }
+		                ctr = ctr+1;
+			            }
+			    	
+			    	Y = OBE.getCol(newM, 1);
+			    	for (int i = 0; i < OBE.getRowEff(newM); i++) {
+			    		for (int j = 0; j < OBE.getColEff(newM); j++) {
+			    			if (j == 0){
+			    				newM[i][j] = 1;
+			    			}
+			    		}
+			    	}
+			    	X = newM;
+			    	scanner2.close();
+		    		}
+            	break;
+            } else{
+            	System.out.println("Masukkan nilai-nilai xi dan yi:");
+                for (int i = 0; i < m; i++) {
+                	Y[i] = sc.nextDouble();
+                	Y[i] = Math.round(Y[i] * 100.0) / 100.0;
+                    X[i][0] = 1;
+                    for (int j = 1; j <= n; j++) {
+                        X[i][j] = sc.nextDouble();
+                        X[i][j] = Math.round(X[i][j] * 100.0) / 100.0;
+                    }
+                }
+            	break;
             }
         }
+        // Input nilai-nilai x1i, x2i, ..., xni, dan yi
+        
         boolean linear = false;
         System.out.println("1. Multiple Linear Regression");
         System.out.println("2. Multiple Quadratic Regression");
-        int choose = -1;
+        choose = -1;
         double[] coefficients = new double[n+1];
         while (choose != 1 || choose != 2 ) {
         	System.out.print("Pilihan: ");
@@ -161,7 +221,7 @@ public class RegresiBerganda {
         sc.close();
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
     	MultipleRegression();
     }
 }
