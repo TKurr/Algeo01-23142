@@ -161,9 +161,27 @@ public class RegresiBerganda {
     }
     
     public static void main(String[] args) {
-        MultipleRegression();
+        double[][] m = {
+            {1, -1, 0, 0, 1},
+            {1, 1, 0, -3, 0},
+            {2, -1, 0, 1, -1},
+            {-1, 2, 0, -2, -1}
+          };
+
+          double[][] b = {
+            {1},
+            {-2},
+            {4},
+            {6}
+          };
+
+          };
+          System.out.println("Matriks Augmented :");
+          OBE.printMatrix(b);
+          System.out.println("");
+     //     System.out.println("Matriks B :");
+     //     OBE.printMatrix(n);
+     //     System.out.println();
+          SPL.printSolution(SPL.Cramer(b, n));
     }
-    
-    
-}
     
