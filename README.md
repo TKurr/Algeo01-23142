@@ -74,9 +74,8 @@ Group Name: **Lastesest**
     -   Perform **Quadratic Regression** for fitting data to a quadratic model.
       
 -   **Image Resizer**:
-    -   Place your image in the Matrix/public folder.
-    -   When prompted, enter the file name of the image (example: image.png).
-    -   The resized image will be saved in the Matrix/test/output/images folder.
+    -   Accepts image, new height, and new width (in pixels) as the input.
+    -   Outputs a resized image with smooth quality.
 
 -   **Input and Output**:
     -   Accepts input from the terminal (manual input) or from text files (matrix data).
@@ -93,6 +92,8 @@ Once the program is running, you can use it to perform various linear algebra op
 -   Interpolation: Use polynomial interpolation or bicubic spline interpolation to estimate unknown values from known data points.
 
 -   Regression Analysis: Input data for regression analysis to determine relationships between variables or predict future outcomes.
+  
+-   Image Resizer: Place your image in the Matrix/public folder. When prompted, enter the file name of the image (example: image.png). The resized image will be saved in the Matrix/test/output/images folder.
 
 ## Technologies Used
 
