@@ -72,6 +72,11 @@ Group Name: **Lastesest**
 
     -   Conduct **Multiple Linear Regression** to model relationships between multiple variables.
     -   Perform **Quadratic Regression** for fitting data to a quadratic model.
+      
+-   **Image Resizer**:
+    -   Place your image in the Matrix/public folder.
+    -   When prompted, enter the file name of the image (example: image.png).
+    -   The resized image will be saved in the Matrix/test/output/images folder.
 
 -   **Input and Output**:
     -   Accepts input from the terminal (manual input) or from text files (matrix data).
