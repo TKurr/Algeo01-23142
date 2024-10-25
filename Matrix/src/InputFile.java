@@ -30,6 +30,24 @@ public class InputFile {
             return false;
         }
     }
+    
+    public static boolean checkImage(String filename) {
+        try {
+            File inputFile = new File("public/" + filename);
+
+            Scanner scanner = new Scanner(inputFile);
+
+            scanner.close();
+            
+            System.out.println("File found");
+            return true;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            
+            return false;
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
     	if (checkFile("soal1a.txt")) {
     		File inputFile = getFile("soal1a.txt");

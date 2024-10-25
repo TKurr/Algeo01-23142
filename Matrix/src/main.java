@@ -34,7 +34,19 @@ public class main {
 			    } else if (menu.equals("6")) {
 			    	RegresiBerganda.main(null);
 			    } else if (menu.equals("7")) {
-			    	ImageResize.main(null);
+			    	System.out.println("Tuliskan nama file gambar dalam folder public");
+			    	String filename = myObj.nextLine();
+			    	if (InputFile.checkImage(filename)) {
+			    		System.out.println("Height yang baru (dalam pixels):");
+			    		int newHeight = OBE.inputInteger();
+			    		System.out.println("Width yang baru (dalam pixels):");
+			    		int newWidth = OBE.inputInteger();
+			    		System.out.println("Resizing image...");
+			    		ImageResize.main(filename,newHeight,newWidth);
+			    		System.out.println("Resizing completed.");
+			    		System.out.println("You can find the result at Matrix/test/output/images/" + filename);
+			    	}
+			    	myObj.nextLine();
 			    } else if (menu.equals("8")) {
 			    	System.out.println("Terima kasih sudah menggunakan program kami!");
 			    	break;
