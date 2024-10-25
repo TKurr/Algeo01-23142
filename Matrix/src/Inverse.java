@@ -93,7 +93,7 @@ public class Inverse {
 		
 		while (true) {
 			displayMenuInv();
-			Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+			Scanner myObj = new Scanner(System.in);
 		    double[][] m = SPL.copyMatrix(currentMatrix);
 		    System.out.println("Pilih satu menu (nomor):");
 		    String menu = myObj.nextLine(); 

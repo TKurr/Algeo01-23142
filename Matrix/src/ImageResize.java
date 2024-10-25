@@ -10,7 +10,6 @@ public class ImageResize {
         try {
             File input_file = Paths.get("public/sigma.png").toFile();
 
-            // Read the input image
             BufferedImage image = ImageIO.read(input_file);
 
             int newWidth = 1000;
@@ -18,10 +17,8 @@ public class ImageResize {
             int originalWidth = image.getWidth();
             int originalHeight = image.getHeight();
 
-            // Create the resized output image
             BufferedImage outputImage = new BufferedImage(newWidth, newHeight, image.getType());
 
-            // Resize the image (manual scaling)
             for (int y = 0; y < newHeight; y++) {
                 for (int x = 0; x < newWidth; x++) {
                     int srcX = x * originalWidth / newWidth;
@@ -64,7 +61,6 @@ public class ImageResize {
                     }
                 }
             } 
-            // Output the result
             File output_file = Paths.get("public/result.png").toFile();
             ImageIO.write(outputImage, "png", output_file);
             System.out.println("Writing complete.");

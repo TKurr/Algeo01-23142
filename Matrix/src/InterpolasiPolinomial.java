@@ -27,8 +27,6 @@ public class InterpolasiPolinomial {
 
     public double[] calculateCoefficient() {
         int n = points.length;
-
-        // Build augmented matrix from point inputs
         double[][] matrix = new double[n][n + 1];
         for (int i = 0; i < n; i++) {
             double x = points[i][0];
@@ -36,7 +34,7 @@ public class InterpolasiPolinomial {
             for (int j = 0; j < n; j++) {
                 matrix[i][j] = Math.pow(x, j);
             }
-            matrix[i][n] = y;  // Last column = y
+            matrix[i][n] = y;
         }
 
         double[][] solvedMatrix = elimGaussJordan(matrix);
@@ -75,7 +73,6 @@ public class InterpolasiPolinomial {
         return matrix;
     }
 
-    // Back substitution to get solution
     public double[] backSubstitution(double[][] matrix) {
         int n = matrix.length;
         double[] solution = new double[n];
@@ -85,7 +82,6 @@ public class InterpolasiPolinomial {
         return solution;
     }
 
-    // Interpolate method to find Y / Pn(x)
     public double interpolate(double x) {
         double result = 0;
         for (int i = 0; i < a.length; i++) {
@@ -95,12 +91,10 @@ public class InterpolasiPolinomial {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        // Input N (number of point inputs)
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number of points: ");
         int N = scanner.nextInt();
-        
-        // Input points
+     
         double[][] points = new double[N][2];
         int choose = -1;
         System.out.println("1. Input dari file");
@@ -163,7 +157,6 @@ public class InterpolasiPolinomial {
 
         InterpolasiPolinomial interpolation = new InterpolasiPolinomial(points);
 
-        // Input X
         System.out.print("Enter x: ");
         double valX = scanner.nextDouble();
 

@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class RegresiBerganda {
-	// Fungsi untuk menghitung koefisien regresi
     public static double[] calculateLinearCoefficients(double[][] X, double[] Y) {
         int m = OBE.getRowEff(X);
         int n = OBE.getColEff(X);
@@ -12,19 +11,14 @@ public class RegresiBerganda {
         double[][] XTX = new double[n][n];
         XTX = OBE.multiplyBetweenMatrix(XT, X);
         
-        // Matriks X^T * Y
         double[] XTY = new double[n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 XTY[i] += XT[i][j] * Y[j];
             }
         }
-       
-
-        // Invers dari matriks X^T * X
         double[][] XTXInv = Inverse.InverseAdjoin(XTX);
         
-        // Koefisien regresi: (X^T * X)^-1 * (X^T * Y)
         double[] coefficients = new double[n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -60,18 +54,14 @@ public class RegresiBerganda {
         double[][] XTX = new double[n][n];
         XTX = OBE.multiplyBetweenMatrix(XT, newX);
         
-        // Matriks X^T * Y
         double[] XTY = new double[n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 XTY[i] += XT[i][j] * Y[j];
             }
         }
-        
-        // Invers dari matriks X^T * X
         double[][] XTXInv = Inverse.InverseAdjoin(XTX);
-        
-        // Koefisien regresi: (X^T * X)^-1 * (X^T * Y)
+
         double[] coefficients = new double[n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -84,7 +74,6 @@ public class RegresiBerganda {
     public static void MultipleRegression() throws FileNotFoundException {
     	Scanner sc = new Scanner(System.in);
       
-        // Input jumlah variabel (n) dan jumlah sampel (m)
         System.out.print("Masukkan jumlah variabel n: ");
         int n = sc.nextInt();
         System.out.print("Masukkan jumlah sampel m: ");
@@ -161,8 +150,7 @@ public class RegresiBerganda {
             	break;
             }
         }
-        // Input nilai-nilai x1i, x2i, ..., xni, dan yi
-        
+      
         boolean linear = false;
         System.out.println("1. Multiple Linear Regression");
         System.out.println("2. Multiple Quadratic Regression");
@@ -205,14 +193,12 @@ public class RegresiBerganda {
         }
         System.out.println("");
         
-        // Input nilai-nilai xk yang akan ditaksir nilai fungsinya
         double[] xk = new double[n+1];
         System.out.println("Masukkan nilai-nilai xk:");
         for (int i = 0; i <= n; i++) {
             xk[i] = sc.nextDouble();
         }
         
-        // Prediksi nilai yk
         double yk = 0;
         for (int i = 0; i <= n; i++) {
             yk += coefficients[i] * xk[i];

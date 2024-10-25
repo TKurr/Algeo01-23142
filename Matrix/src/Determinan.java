@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class Determinan {
 	public static double minorMatriks(double[][] m){
-		// I.S : matriks terdefinisi 2x2
-		// F.S : nilai determinan
 		return (m[0][0]*m[1][1]) - (m[0][1]*m[1][0]);
 	}
 	

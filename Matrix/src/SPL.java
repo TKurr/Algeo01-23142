@@ -102,8 +102,6 @@ public class SPL {
     
     
     public static double[] gaussJordanSPL(double[][] m) {
-    	// matriks sudah berbentuk matriks eselon tereduksi
-    	// solusi matriks unik
     	double[][] mOut = m;
     	mOut = elimGaussJordan(mOut);
 		double[] result = new double[OBE.getRowEff(mOut)];

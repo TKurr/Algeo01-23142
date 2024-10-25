@@ -18,9 +18,9 @@ public class main {
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
 				displayMenu();
-				Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+				Scanner myObj = new Scanner(System.in); 
 			    System.out.println("Pilih satu menu (nomor):");
-			    String menu = myObj.nextLine();  // Read user input
+			    String menu = myObj.nextLine();
 			    if (menu.equals("1")) {
 			    	SPL.main(null);
 			    } else if (menu.equals("2")) {
